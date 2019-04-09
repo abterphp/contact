@@ -19,6 +19,8 @@ use Opulence\Orm\IEntity;
 class Contact extends Base
 {
     /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     *
      * @param string       $action
      * @param string       $method
      * @param string       $showUrl
