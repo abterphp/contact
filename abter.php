@@ -1,6 +1,7 @@
 <?php
 
-use AbterPhp\Contact;
+use AbterPhp\Contact\Bootstrappers;
+use AbterPhp\Contact\Events;
 use AbterPhp\Framework\Constant\Event;
 use AbterPhp\Framework\Constant\Module;
 use AbterPhp\Framework\Constant\Priorities;
