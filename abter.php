@@ -19,11 +19,11 @@ return [
     Module::EVENTS             => [
         Event::TEMPLATE_ENGINE_READY => [
             /** @see \AbterPhp\Contact\Events\Listeners\TemplateInitializer::handle */
-            sprintf('%s@handle', Events\Listeners\TemplateInitializer::class),
+            Priorities::NORMAL => [sprintf('%s@handle', Events\Listeners\TemplateInitializer::class)],
         ],
         Event::DASHBOARD_READY       => [
             /** @see \AbterPhp\Contact\Events\Listeners\DashboardBuilder::handle */
-            sprintf('%s@handle', Events\Listeners\DashboardBuilder::class),
+            Priorities::NORMAL => [sprintf('%s@handle', Events\Listeners\DashboardBuilder::class)],
         ],
     ],
     Module::ROUTE_PATHS        => [
