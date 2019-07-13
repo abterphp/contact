@@ -8,7 +8,6 @@ use AbterPhp\Contact\Domain\Entities\Form as Entity;
 use AbterPhp\Contact\Orm\FormRepo as GridRepo;
 use AbterPhp\Contact\Validation\Factory\Form as ValidatorFactory;
 use AbterPhp\Framework\Domain\Entities\IStringerEntity;
-use AbterPhp\Framework\Filesystem\Uploader;
 use AbterPhp\Framework\Http\Service\Execute\RepoServiceAbstract;
 use Cocur\Slugify\Slugify;
 use Opulence\Events\Dispatchers\IEventDispatcher;
@@ -35,8 +34,7 @@ class Form extends RepoServiceAbstract
         ValidatorFactory $validatorFactory,
         IUnitOfWork $unitOfWork,
         IEventDispatcher $eventDispatcher,
-        Slugify $slugify,
-        Uploader $uploader
+        Slugify $slugify
     ) {
         parent::__construct($repo, $validatorFactory, $unitOfWork, $eventDispatcher);
 
@@ -54,6 +52,8 @@ class Form extends RepoServiceAbstract
     }
 
     /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     *
      * @param Entity         $entity
      * @param array          $postData
      * @param UploadedFile[] $fileData
