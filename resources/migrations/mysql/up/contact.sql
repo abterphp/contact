@@ -37,3 +37,11 @@ CREATE TABLE `contact_forms`
     KEY `contact_forms_deleted_index` (`deleted`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
+
+-- Provide admins access to all admin resources
+INSERT IGNORE INTO `user_groups_admin_resources` (`id`, `user_group_id`, `admin_resource_id`)
+SELECT UUID() AS `id`, `user_groups`.`id` AS `user_group_id`, `admin_resources`.`id` AS `admin_resource_id`
+FROM user_groups
+         INNER JOIN admin_resources ON 1
+WHERE user_groups.identifier = 'admin';
+
