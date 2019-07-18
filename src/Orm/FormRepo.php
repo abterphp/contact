@@ -25,4 +25,16 @@ class FormRepo extends Repository implements IGridRepo
         /** @see FormSqlDataMapper::getPage() */
         return $this->getFromDataMapper('getPage', [$limitFrom, $pageSize, $orders, $conditions, $params]);
     }
+
+    /**
+     * @param string $identifier
+     *
+     * @return Entity|null
+     * @throws \Opulence\Orm\OrmException
+     */
+    public function getByIdentifier(string $identifier): ?Entity
+    {
+        /** @see FormSqlDataMapper::getPage() */
+        return $this->getFromDataMapper('getByIdentifier', [$identifier]);
+    }
 }

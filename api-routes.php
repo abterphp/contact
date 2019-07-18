@@ -58,6 +58,12 @@ $router->group(
                         "Api\\${controllerName}@delete"
                     );
                 }
+
+                /** @see \AbterPhp\Contact\Http\Controllers\Api\Message::create() */
+                $router->post(
+                    "/contactforms/:entityId/messages",
+                    "Api\\Message@create"
+                );
             }
         );
     }

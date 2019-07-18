@@ -65,8 +65,8 @@ class Contact extends Base
      */
     protected function addFromName(): Contact
     {
-        $input = new Input('from-name', 'from-name', '');
-        $label = new Label('from-name', 'contact:fromName');
+        $input = new Input('from_name', 'from_name', '');
+        $label = new Label('from_name', 'contact:fromName');
 
         $this->form[] = new FormGroup($input, $label, null);
 
@@ -78,8 +78,8 @@ class Contact extends Base
      */
     protected function addFromEmail(): Contact
     {
-        $input = new Input('from-email', 'from-email', '', [], [Html5::ATTR_TYPE => Input::TYPE_EMAIL]);
-        $label = new Label('from-email', 'contact:fromEmail');
+        $input = new Input('from_email', 'from_email', '', [], [Html5::ATTR_TYPE => Input::TYPE_EMAIL]);
+        $label = new Label('from_email', 'contact:fromEmail');
 
         $this->form[] = new FormGroup($input, $label);
 

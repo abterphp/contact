@@ -33,6 +33,21 @@ class Form extends ValidatorFactory
             ->email()
             ->required();
 
+        $validator
+            ->field('success_url')
+            ->url()
+            ->required();
+
+        $validator
+            ->field('failure_url')
+            ->url()
+            ->required();
+
+        $validator
+            ->field('max_body_length')
+            ->numeric()
+            ->required();
+
         return $validator;
     }
 }

@@ -20,4 +20,10 @@ return [
     'formIdentifier' => 'Azonosító',
     'formToName'     => 'Név (címzett)',
     'formToEmail'    => 'Email (címzett)',
+    'formSuccessUrl'    => 'Siker URL',
+    'hintSuccessUrl'    => 'URL, ahova a felhasználó irányítva lesz siker esetén',
+    'formFailureUrl'    => 'Hiba URL',
+    'hintFailureUrl'    => 'URL, ahova a felhasználó irányítva lesz hiba esetén',
+    'formMaxBodyLength' => 'Maximális üzenet hossz',
+    'hintMaxBodyLength' => '0 = nincs határ',
 ];

@@ -8,7 +8,7 @@ class Routes
 {
     const ROUTE_CONTACT = 'contact';
 
-    const PATH_CONTACT = '/contact/send';
+    const PATH_CONTACT = '/contact/:formIdentifier';
 
     const ROUTE_CONTACT_FORMS        = 'contactforms';
     const ROUTE_CONTACT_FORMS_NEW    = 'contactforms-new';

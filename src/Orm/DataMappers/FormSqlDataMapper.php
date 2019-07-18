@@ -24,11 +24,14 @@ class FormSqlDataMapper extends SqlDataMapper implements IFormDataMapper
             ->insert(
                 'contact_forms',
                 [
-                    'id'         => [$entity->getId(), \PDO::PARAM_STR],
-                    'name'       => [$entity->getName(), \PDO::PARAM_STR],
-                    'identifier' => [$entity->getIdentifier(), \PDO::PARAM_STR],
-                    'to_name'    => [$entity->getToName(), \PDO::PARAM_STR],
-                    'to_email'   => [$entity->getToEmail(), \PDO::PARAM_STR],
+                    'id'              => [$entity->getId(), \PDO::PARAM_STR],
+                    'name'            => [$entity->getName(), \PDO::PARAM_STR],
+                    'identifier'      => [$entity->getIdentifier(), \PDO::PARAM_STR],
+                    'to_name'         => [$entity->getToName(), \PDO::PARAM_STR],
+                    'to_email'        => [$entity->getToEmail(), \PDO::PARAM_STR],
+                    'success_url'     => [$entity->getSuccessUrl(), \PDO::PARAM_STR],
+                    'failure_url'     => [$entity->getFailureUrl(), \PDO::PARAM_STR],
+                    'max_body_length' => [$entity->getMaxBodyLength(), \PDO::PARAM_INT],
                 ]
             );
 
@@ -105,9 +108,9 @@ class FormSqlDataMapper extends SqlDataMapper implements IFormDataMapper
     }
 
     /**
-     * @param int|string $id
+     * @param string $id
      *
-     * @return array|null
+     * @return Entity|null
      */
     public function getById($id)
     {
@@ -115,6 +118,24 @@ class FormSqlDataMapper extends SqlDataMapper implements IFormDataMapper
 
         $parameters = [
             'form_id' => [$id, \PDO::PARAM_STR],
+        ];
+
+        $sql = $query->getSql();
+
+        return $this->read($sql, $parameters, self::VALUE_TYPE_ENTITY, true);
+    }
+
+    /**
+     * @param string $identifier
+     *
+     * @return Entity|null
+     */
+    public function getByIdentifier(string $identifier): ?Entity
+    {
+        $query = $this->getBaseQuery()->andWhere('cf.identifier = :form_identifier');
+
+        $parameters = [
+            'form_identifier' => [$identifier, \PDO::PARAM_STR],
         ];
 
         $sql = $query->getSql();
@@ -136,10 +157,13 @@ class FormSqlDataMapper extends SqlDataMapper implements IFormDataMapper
                 'contact_forms',
                 'contact_forms',
                 [
-                    'name'       => [$entity->getName(), \PDO::PARAM_STR],
-                    'identifier' => [$entity->getIdentifier(), \PDO::PARAM_STR],
-                    'to_name'    => [$entity->getToName(), \PDO::PARAM_STR],
-                    'to_email'   => [$entity->getToEmail(), \PDO::PARAM_STR],
+                    'name'            => [$entity->getName(), \PDO::PARAM_STR],
+                    'identifier'      => [$entity->getIdentifier(), \PDO::PARAM_STR],
+                    'to_name'         => [$entity->getToName(), \PDO::PARAM_STR],
+                    'to_email'        => [$entity->getToEmail(), \PDO::PARAM_STR],
+                    'success_url'     => [$entity->getSuccessUrl(), \PDO::PARAM_STR],
+                    'failure_url'     => [$entity->getFailureUrl(), \PDO::PARAM_STR],
+                    'max_body_length' => [$entity->getMaxBodyLength(), \PDO::PARAM_INT],
                 ]
             )
             ->where('id = ?')
@@ -166,7 +190,10 @@ class FormSqlDataMapper extends SqlDataMapper implements IFormDataMapper
             $hash['name'],
             $hash['identifier'],
             $hash['to_name'],
-            $hash['to_email']
+            $hash['to_email'],
+            $hash['success_url'],
+            $hash['failure_url'],
+            (int)$hash['max_body_length']
         );
     }
 
@@ -182,7 +209,10 @@ class FormSqlDataMapper extends SqlDataMapper implements IFormDataMapper
                 'cf.name',
                 'cf.identifier',
                 'cf.to_name',
-                'cf.to_email'
+                'cf.to_email',
+                'cf.success_url',
+                'cf.failure_url',
+                'cf.max_body_length'
             )
             ->from('contact_forms', 'cf')
             ->where('cf.deleted = 0');

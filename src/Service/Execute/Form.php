@@ -48,7 +48,7 @@ class Form extends RepoServiceAbstract
      */
     public function createEntity(string $entityId): IStringerEntity
     {
-        return new Entity($entityId, '', '', '', '');
+        return new Entity($entityId, '', '', '', '', '', '', 0);
     }
 
     /**
@@ -63,10 +63,13 @@ class Form extends RepoServiceAbstract
      */
     protected function fillEntity(IStringerEntity $entity, array $postData, array $fileData): IStringerEntity
     {
-        $name       = (string)$postData['name'];
-        $identifier = (string)$postData['identifier'];
-        $toName     = (string)$postData['to_name'];
-        $toEmail    = (string)$postData['to_email'];
+        $name          = (string)$postData['name'];
+        $identifier    = (string)$postData['identifier'];
+        $toName        = (string)$postData['to_name'];
+        $toEmail       = (string)$postData['to_email'];
+        $successUrl    = (string)$postData['success_url'];
+        $failureUrl    = (string)$postData['failure_url'];
+        $maxBodyLength = (int)$postData['max_body_length'];
 
         if (!$identifier) {
             $identifier = $this->slugify->slugify($name);
@@ -76,7 +79,10 @@ class Form extends RepoServiceAbstract
             ->setName($name)
             ->setIdentifier($identifier)
             ->setToName($toName)
-            ->setToEmail($toEmail);
+            ->setToEmail($toEmail)
+            ->setSuccessUrl($successUrl)
+            ->setFailureUrl($failureUrl)
+            ->setMaxBodyLength($maxBodyLength);
 
         return $entity;
     }

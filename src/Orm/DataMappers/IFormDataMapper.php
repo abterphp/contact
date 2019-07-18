@@ -19,4 +19,12 @@ interface IFormDataMapper extends IDataMapper
      * @return Entity[]
      */
     public function getPage(int $limitFrom, int $pageSize, array $orders, array $filters, array $params): array;
+
+    /**
+     * @param string $identifier
+     *
+     * @return Entity|null
+     * @throws \Opulence\Orm\OrmException
+     */
+    public function getByIdentifier(string $identifier): ?Entity;
 }

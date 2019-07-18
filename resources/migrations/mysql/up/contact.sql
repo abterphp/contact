@@ -24,14 +24,17 @@ VALUES (UUID(), 'contact-success', 'Contact Success', '', '', '', '', '', '', ''
 
 CREATE TABLE `contact_forms`
 (
-    `id`         char(36)            NOT NULL,
-    `name`       varchar(100)        NOT NULL,
-    `identifier` varchar(160)        NOT NULL,
-    `to_name`    varchar(100)        NOT NULL,
-    `to_email`   varchar(127)        NOT NULL,
-    `created_at` timestamp           NOT NULL DEFAULT current_timestamp(),
-    `updated_at` timestamp           NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-    `deleted`    tinyint(1) unsigned NOT NULL DEFAULT 0,
+    `id`              char(36)            NOT NULL,
+    `name`            varchar(100)        NOT NULL,
+    `identifier`      varchar(160)        NOT NULL,
+    `to_name`         varchar(100)        NOT NULL,
+    `to_email`        varchar(127)        NOT NULL,
+    `success_url`     mediumtext          NOT NULL,
+    `failure_url`     mediumtext          NOT NULL,
+    `max_body_length` int(11) unsigned    NOT NULL DEFAULT 0,
+    `created_at`      timestamp           NOT NULL DEFAULT current_timestamp(),
+    `updated_at`      timestamp           NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+    `deleted`         tinyint(1) unsigned NOT NULL DEFAULT 0,
     PRIMARY KEY (`id`),
     UNIQUE KEY `identifier` (`identifier`),
     KEY `contact_forms_deleted_index` (`deleted`)

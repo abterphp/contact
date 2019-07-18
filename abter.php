@@ -17,9 +17,6 @@ return [
     Module::CLI_BOOTSTRAPPERS => [
         Bootstrappers\Database\MigrationsBootstrapper::class,
     ],
-    Module::HTTP_BOOTSTRAPPERS => [
-        Bootstrappers\Http\Controllers\Website\ContactBootstrapper::class,
-    ],
     Module::EVENTS             => [
         Event::TEMPLATE_ENGINE_READY => [
             /** @see \AbterPhp\Contact\Events\Listeners\TemplateInitializer::handle */

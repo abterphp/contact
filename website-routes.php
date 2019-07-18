@@ -15,10 +15,10 @@ use Opulence\Routing\Router;
 $router->group(
     ['controllerNamespace' => 'AbterPhp\Contact\Http\Controllers'],
     function (Router $router) {
-        /** @see \AbterPhp\Contact\Http\Controllers\Website\Contact::send() */
+        /** @see \AbterPhp\Contact\Http\Controllers\Website\Contact::submit() */
         $router->post(
             Routes::PATH_CONTACT,
-            'Website\Contact@send',
+            'Website\Contact@submit',
             [OPTION_NAME => Routes::ROUTE_CONTACT]
         );
     }
