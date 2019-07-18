@@ -77,6 +77,10 @@ class ContactLoader implements ILoader
     }
 
     /**
+     * Because the form will come with a non-reusable CSRF token, it needs to invalidate the page if it contains
+     * a contact form
+     * (It's possible to work around this, but it wouldn't be easy as Opulence checks CSRF tokens automatically.)
+     *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      *
      * @param string[] $identifiers
@@ -86,6 +90,6 @@ class ContactLoader implements ILoader
      */
     public function hasAnyChangedSince(array $identifiers, string $cacheTime): bool
     {
-        return false;
+        return count($identifiers);
     }
 }
