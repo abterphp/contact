@@ -171,7 +171,7 @@ class Message implements IStringerEntity
      */
     public function __toString(): string
     {
-        return $this->getIdentifier();
+        return sprintf('%s - %s', $this->getFromName(), $this->getSubject());
     }
 
     /**
@@ -182,10 +182,11 @@ class Message implements IStringerEntity
         return json_encode(
             [
                 'id'         => $this->getId(),
-                'name'       => $this->getName(),
-                'identifier' => $this->getIdentifier(),
-                'to_name'    => $this->getToName(),
-                'to_email'   => $this->getToEmail(),
+                'form'       => $this->getForm(),
+                'subject'    => $this->getSubject(),
+                'body'       => $this->getBody(),
+                'from_name'  => $this->getFromName(),
+                'from_email' => $this->getFromEmail(),
             ]
         );
     }
