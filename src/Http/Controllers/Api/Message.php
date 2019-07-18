@@ -92,6 +92,8 @@ class Message extends Controller
     }
 
     /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     *
      * @param string $entityId
      *
      * @return Response
@@ -110,6 +112,8 @@ class Message extends Controller
     }
 
     /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     *
      * @param string $entityId
      *
      * @return Response
@@ -120,6 +124,8 @@ class Message extends Controller
     }
 
     /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     *
      * @param string $entityId
      *
      * @return Response

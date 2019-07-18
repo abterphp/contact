@@ -155,6 +155,8 @@ class Message
     }
 
     /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     * 
      * @param string $formIdentifier
      * @param Entity $entity
      * @param array  $postData

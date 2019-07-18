@@ -57,7 +57,7 @@ class Contact extends Controller
 
         $url = $message->getForm()->getSuccessUrl();
         if ($this->messageService->send($message) < 1) {
-            $url = $form->getFailureUrl();
+            $url = $message->getForm()->getFailureUrl();
         }
 
         foreach ($this->messageService->getFailedRecipients() as $recipient) {
