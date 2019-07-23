@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AbterPhp\Contact\Events\Listeners;
 
-use AbterPhp\Contact\Template\ContactLoader as Loader;
+use AbterPhp\Contact\Template\Loader\Contact as Loader;
 use AbterPhp\Framework\Events\TemplateEngineReady;
 use AbterPhp\Framework\Template\ILoader;
 

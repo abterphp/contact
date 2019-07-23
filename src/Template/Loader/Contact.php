@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AbterPhp\Contact\Template;
+namespace AbterPhp\Contact\Template\Loader;
 
 use AbterPhp\Contact\Constant\Event;
 use AbterPhp\Contact\Constant\Routes;
@@ -12,11 +12,12 @@ use AbterPhp\Framework\I18n\ITranslator;
 use AbterPhp\Framework\Template\Data;
 use AbterPhp\Framework\Template\IData;
 use AbterPhp\Framework\Template\ILoader;
+use AbterPhp\Framework\Template\ParsedTemplate;
 use Opulence\Events\Dispatchers\IEventDispatcher;
 use Opulence\Http\Requests\RequestMethods;
 use Opulence\Routing\Urls\UrlGenerator;
 
-class ContactLoader implements ILoader
+class Contact implements ILoader
 {
     /** @var UrlGenerator */
     protected $urlGenerator;
@@ -31,7 +32,7 @@ class ContactLoader implements ILoader
     protected $eventDispatcher;
 
     /**
-     * ContactLoader constructor.
+     * Contact constructor.
      *
      * @param UrlGenerator     $urlGenerator
      * @param FormFactory      $formFactory
@@ -51,12 +52,14 @@ class ContactLoader implements ILoader
     }
 
     /**
-     * @param string[] $identifiers
+     * @param ParsedTemplate[] $parsedTemplates
      *
      * @return IData[]
      */
-    public function load(array $identifiers): array
+    public function load(array $parsedTemplates): array
     {
+        $identifiers = array_keys($parsedTemplates);
+
         $templateData = [];
         foreach ($identifiers as $identifier) {
             $url  = $this->urlGenerator->createFromName(Routes::ROUTE_CONTACT, $identifier);
