@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace AbterPhp\Contact\Http\Controllers\Api;
 
 use AbterPhp\Contact\Service\Execute\Message as MessageService;
-use AbterPhp\Framework\Config\Provider as ConfigProvider;
+use AbterPhp\Framework\Config\EnvReader;
+use AbterPhp\Framework\Constant\Env;
 use AbterPhp\Framework\Http\Controllers\ApiDataTrait;
 use AbterPhp\Framework\Http\Controllers\ApiIssueTrait;
 use Opulence\Http\Responses\Response;
@@ -37,16 +38,16 @@ class Message extends Controller
      *
      * @param LoggerInterface $logger
      * @param MessageService  $messageService
-     * @param ConfigProvider  $configProvider
+     * @param EnvReader       $envReader
      */
     public function __construct(
         LoggerInterface $logger,
         MessageService $messageService,
-        ConfigProvider $configProvider
+        EnvReader $envReader
     ) {
         $this->logger         = $logger;
         $this->messageService = $messageService;
-        $this->problemBaseUrl = $configProvider->getProblemBaseUrl();
+        $this->problemBaseUrl = $envReader->get(Env::API_PROBLEM_BASE_URL);
     }
 
     /**
