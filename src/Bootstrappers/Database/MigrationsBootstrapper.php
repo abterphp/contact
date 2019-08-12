@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AbterPhp\Admin\Bootstrappers\Database;
+namespace AbterPhp\Contact\Bootstrappers\Database;
 
 use AbterPhp\Admin\Bootstrappers\Filesystem\FileFinderBootstrapper;
 use AbterPhp\Contact\Databases\Migrations\Init;
