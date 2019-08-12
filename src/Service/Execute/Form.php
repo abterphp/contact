@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace AbterPhp\Contact\Service\Execute;
 
+use AbterPhp\Admin\Http\Service\Execute\RepoServiceAbstract;
 use AbterPhp\Contact\Domain\Entities\Form as Entity;
 use AbterPhp\Contact\Orm\FormRepo as GridRepo;
 use AbterPhp\Contact\Validation\Factory\Form as ValidatorFactory;
 use AbterPhp\Framework\Domain\Entities\IStringerEntity;
-use AbterPhp\Framework\Http\Service\Execute\RepoServiceAbstract;
 use Cocur\Slugify\Slugify;
 use Opulence\Events\Dispatchers\IEventDispatcher;
 use Opulence\Http\Requests\UploadedFile;
@@ -54,15 +54,17 @@ class Form extends RepoServiceAbstract
     /**
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      *
-     * @param Entity         $entity
-     * @param array          $postData
-     * @param UploadedFile[] $fileData
+     * @param IStringerEntity $entity
+     * @param array           $postData
+     * @param UploadedFile[]  $fileData
      *
      * @return Entity
      * @throws OrmException
      */
     protected function fillEntity(IStringerEntity $entity, array $postData, array $fileData): IStringerEntity
     {
+        assert($entity instanceof Entity, new \InvalidArgumentException('Invalid entity'));
+
         $name          = (string)$postData['name'];
         $identifier    = (string)$postData['identifier'];
         $toName        = (string)$postData['to_name'];

@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace AbterPhp\Contact\Http\Controllers\Api;
 
+use AbterPhp\Admin\Http\Controllers\ApiDataTrait;
+use AbterPhp\Admin\Http\Controllers\ApiIssueTrait;
+use AbterPhp\Contact\Domain\Entities\Message as Entity;
 use AbterPhp\Contact\Service\Execute\Message as MessageService;
 use AbterPhp\Framework\Config\EnvReader;
 use AbterPhp\Framework\Constant\Env;
-use AbterPhp\Framework\Http\Controllers\ApiDataTrait;
-use AbterPhp\Framework\Http\Controllers\ApiIssueTrait;
 use Opulence\Http\Responses\Response;
 use Opulence\Http\Responses\ResponseHeaders;
 use Opulence\Routing\Controller;
@@ -71,14 +72,16 @@ class Message extends Controller
             $entity = $this->messageService->createEntity('');
             $entity = $this->messageService->fillEntity($formIdentifier, $entity, $data, []);
 
-            $entity = $this->messageService->send($entity);
+            assert($entity instanceof Entity, new \RuntimeException('Invalid entity.'));
+
+            $this->messageService->send($entity);
         } catch (\Exception $e) {
             $msg = sprintf(static::LOG_MSG_CREATE_FAILURE, static::ENTITY_SINGULAR);
 
             return $this->handleException($msg, $e);
         }
 
-        return $this->handleCreateSuccess($entity);
+        return $this->handleCreateSuccess();
     }
 
     /**
@@ -88,6 +91,17 @@ class Message extends Controller
     {
         $response = new Response();
         $response->setStatusCode(ResponseHeaders::HTTP_NO_CONTENT);
+
+        return $response;
+    }
+
+    /**
+     * @return Response
+     */
+    protected function handleNotImplemented(): Response
+    {
+        $response = new Response();
+        $response->setStatusCode(ResponseHeaders::HTTP_NOT_IMPLEMENTED);
 
         return $response;
     }

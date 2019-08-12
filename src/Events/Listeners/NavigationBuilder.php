@@ -8,7 +8,7 @@ use AbterPhp\Contact\Constant\Routes;
 use AbterPhp\Framework\Constant\Html5;
 use AbterPhp\Framework\Events\NavigationReady;
 use AbterPhp\Framework\Html\Component\ButtonFactory;
-use AbterPhp\Framework\I18n\ITranslator;
+use AbterPhp\Framework\Html\ITag;
 use AbterPhp\Framework\Navigation\Dropdown;
 use AbterPhp\Framework\Navigation\Item;
 use AbterPhp\Framework\Navigation\Navigation;
@@ -41,14 +41,7 @@ class NavigationBuilder
             return;
         }
 
-        $dropdown = new Dropdown();
-        $dropdown[] = $this->createFormsItem();
-
         $item   = $this->createContactItem();
-        $item->setIntent(Item::INTENT_DROPDOWN);
-        $item->setAttribute(Html5::ATTR_ID, 'nav-contact');
-        $item[0]->setAttribute(Html5::ATTR_HREF, 'javascript:void(0);');
-        $item[1] = $dropdown;
 
         $navigation->addItem($item, static::BASE_WEIGHT);
     }
@@ -86,7 +79,28 @@ class NavigationBuilder
         $item = new Item($button);
         $item->setResource($resource);
 
+        $item->setIntent(Item::INTENT_DROPDOWN);
+        $item->setAttribute(Html5::ATTR_ID, 'nav-contact');
+
+        if (!empty($item[0]) && $item[0] instanceof ITag) {
+            $item[0]->setAttribute(Html5::ATTR_HREF, 'javascript:void(0);');
+        }
+
+        $item[1] = $this->createDropdown();
+
         return $item;
+    }
+
+    /**
+     * @return Dropdown
+     * @throws \Opulence\Routing\Urls\UrlException
+     */
+    protected function createDropdown(): Dropdown
+    {
+        $dropdown = new Dropdown();
+        $dropdown[] = $this->createFormsItem();
+
+        return $dropdown;
     }
 
     /**

@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace AbterPhp\Contact\Http\Controllers\Website;
 
-use AbterPhp\Contact\Domain\Entities\Form;
-use AbterPhp\Contact\Domain\Entities\Message;
+use AbterPhp\Contact\Domain\Entities\Message; // @phan-suppress-current-line PhanUnreferencedUseNormal
 use AbterPhp\Contact\Service\Execute\Message as MessageService;
 use Opulence\Http\Responses\RedirectResponse;
 use Opulence\Http\Responses\Response;
@@ -35,7 +34,10 @@ class Contact extends Controller
     }
 
     /**
+     * @param string $formIdentifier
+     *
      * @return Response
+     * @throws \Opulence\Orm\OrmException
      */
     public function submit(string $formIdentifier): Response
     {

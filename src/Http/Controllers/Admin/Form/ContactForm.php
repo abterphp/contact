@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace AbterPhp\Contact\Http\Controllers\Admin\Form;
 
+use AbterPhp\Admin\Http\Controllers\Admin\FormAbstract;
 use AbterPhp\Contact\Domain\Entities\Form as Entity;
 use AbterPhp\Contact\Form\Factory\Form as FormFactory;
 use AbterPhp\Contact\Orm\FormRepo as Repo;
 use AbterPhp\Framework\Domain\Entities\IStringerEntity;
-use AbterPhp\Framework\Http\Controllers\Admin\FormAbstract;
 use AbterPhp\Framework\I18n\ITranslator;
 use AbterPhp\Framework\Session\FlashService;
 use Opulence\Events\Dispatchers\IEventDispatcher;

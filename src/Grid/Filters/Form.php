@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace AbterPhp\Contact\Grid\Filters;
 
 use AbterPhp\Framework\Grid\Component\Filters;
-use AbterPhp\Framework\Grid\Filter\ExactFilter;
-use AbterPhp\Framework\Grid\Filter\LikeFilter;
 
 class Form extends Filters
 {

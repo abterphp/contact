@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace AbterPhp\Contact\Grid\Factory;
 
+use AbterPhp\Admin\Grid\Factory\BaseFactory;
+use AbterPhp\Admin\Grid\Factory\GridFactory;
+use AbterPhp\Admin\Grid\Factory\PaginationFactory;
 use AbterPhp\Contact\Constant\Routes;
 use AbterPhp\Contact\Grid\Factory\Table\Form as Table;
 use AbterPhp\Contact\Grid\Filters\Form as Filters;
 use AbterPhp\Framework\Constant\Html5;
 use AbterPhp\Framework\Grid\Action\Action;
 use AbterPhp\Framework\Grid\Component\Actions;
-use AbterPhp\Framework\Grid\Factory\BaseFactory;
-use AbterPhp\Framework\Grid\Factory\GridFactory;
-use AbterPhp\Framework\Grid\Factory\PaginationFactory as PaginationFactory;
 use Opulence\Routing\Urls\UrlGenerator;
 
 class Form extends BaseFactory

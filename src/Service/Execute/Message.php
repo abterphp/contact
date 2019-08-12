@@ -60,7 +60,7 @@ class Message
     public function getForm(string $formIdentifier): ?Form
     {
         if (array_key_exists($formIdentifier, $this->forms)) {
-            return $this->form[$formIdentifier];
+            return $this->forms[$formIdentifier];
         }
 
         try {
@@ -69,14 +69,14 @@ class Message
             try {
                 $form = $this->formRepo->getById($formIdentifier);
             } catch (OrmException $e) {
-                $this->form[$formIdentifier] = null;
+                unset($this->forms[$formIdentifier]);
 
                 return null;
             }
         }
 
-        $this->form[$form->getId()]         = $form;
-        $this->form[$form->getIdentifier()] = $form;
+        $this->forms[$form->getId()]         = $form;
+        $this->forms[$form->getIdentifier()] = $form;
 
         return $form;
     }
@@ -122,6 +122,7 @@ class Message
      * @param array  $postData
      *
      * @return array errors
+     * @throws OrmException
      */
     public function validateForm(string $formIdentifier, array $postData): array
     {
@@ -143,7 +144,7 @@ class Message
     /**
      * @param string $entityId
      *
-     * @return Entity
+     * @return Entity|IStringerEntity
      */
     public function createEntity(string $entityId): IStringerEntity
     {
@@ -157,12 +158,12 @@ class Message
     /**
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      *
-     * @param string $formIdentifier
-     * @param Entity $entity
-     * @param array  $postData
-     * @param array  $fileData
+     * @param string          $formIdentifier
+     * @param IStringerEntity $entity
+     * @param array           $postData
+     * @param array           $fileData
      *
-     * @return IStringerEntity
+     * @return IStringerEntity|Entity
      */
     public function fillEntity(
         string $formIdentifier,
@@ -170,6 +171,8 @@ class Message
         array $postData,
         array $fileData
     ): IStringerEntity {
+        assert($entity instanceof Entity, new \InvalidArgumentException('Invalid entity'));
+
         $form = $this->getForm($formIdentifier);
         if (null === $form) {
             return $entity;

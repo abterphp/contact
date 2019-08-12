@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace AbterPhp\Contact\Grid\Factory\Table;
 
-use AbterPhp\Framework\Grid\Factory\TableFactory;
-use AbterPhp\Framework\Grid\Factory\Table\BodyFactory;
+use AbterPhp\Admin\Grid\Factory\TableFactory;
+use AbterPhp\Admin\Grid\Factory\Table\BodyFactory;
 use AbterPhp\Contact\Grid\Factory\Table\Header\Form as HeaderFactory;
 
 class Form extends TableFactory

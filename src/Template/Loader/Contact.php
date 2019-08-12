@@ -62,7 +62,7 @@ class Contact implements ILoader
 
         $templateData = [];
         foreach ($identifiers as $identifier) {
-            $url  = $this->urlGenerator->createFromName(Routes::ROUTE_CONTACT, $identifier);
+            $url  = $this->urlGenerator->createFromName(Routes::ROUTE_CONTACT, [$identifier]);
             $form = $this->formFactory->create($url, RequestMethods::POST, '');
 
             $form->setTranslator($this->translator);
