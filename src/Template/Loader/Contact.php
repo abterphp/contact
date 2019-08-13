@@ -62,7 +62,8 @@ class Contact implements ILoader
 
         $templateData = [];
         foreach ($identifiers as $identifier) {
-            $url  = $this->urlGenerator->createFromName(Routes::ROUTE_CONTACT, [$identifier]);
+            // @phan-suppress-next-line PhanTypeMismatchArgument
+            $url  = $this->urlGenerator->createFromName(Routes::ROUTE_CONTACT, $identifier);
             $form = $this->formFactory->create($url, RequestMethods::POST, '');
 
             $form->setTranslator($this->translator);
