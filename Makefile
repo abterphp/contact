@@ -9,9 +9,7 @@ update:
 	php composer.phar update
 
 build:
-	./vendor/bin/phpunit --no-coverage
-	./vendor/bin/phpcs
-	./vendor/bin/phpcs -p --colors --cache --standard=PSR12 tests
+	$(MAKE) precommit
 	./vendor/bin/phpmd src text .phpmd.xml
 	PHAN_DISABLE_XDEBUG_WARN=1 ./vendor/bin/phan --color
 
