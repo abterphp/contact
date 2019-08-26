@@ -48,6 +48,7 @@ class FormTest extends TestCase
             'valid-data'                          => [
                 [
                     'id'              => '465c91df-9cc7-47e2-a2ef-8fe645753148',
+                    'identifier'      => 'qux',
                     'name'            => 'foo',
                     'to_name'         => 'bar',
                     'to_email'        => 'jane@example.com',
@@ -60,6 +61,7 @@ class FormTest extends TestCase
             'valid-data-missing-all-not-required' => [
                 [
                     'name'            => 'foo',
+                    'identifier'      => 'qux',
                     'to_name'         => 'bar',
                     'to_email'        => 'jane@example.com',
                     'success_url'     => 'https://example.com/success',
@@ -67,6 +69,20 @@ class FormTest extends TestCase
                     'max_body_length' => '255',
                 ],
                 true,
+            ],
+            'invalid-id-not-uuid'                 => [
+                [
+                    'id'         => '465c91df-9cc7-47e2-a2ef-8fe64575314',
+                    'identifier' => 'foo',
+                ],
+                false,
+            ],
+            'invalid-identifier-missing'                 => [
+                [
+                    'id'         => '465c91df-9cc7-47e2-a2ef-8fe64575314',
+                    'identifier' => 'foo',
+                ],
+                false,
             ],
             'invalid-id-not-uuid'                 => [
                 [

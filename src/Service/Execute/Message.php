@@ -34,21 +34,21 @@ class Message
     /**
      * Message constructor.
      *
-     * @param ValidatorFactory $validatorFactory
      * @param FormRepo         $formRepo
-     * @param Sender           $sender
+     * @param ValidatorFactory $validatorFactory
      * @param IEventDispatcher $eventDispatcher
+     * @param Sender           $sender
      */
     public function __construct(
-        ValidatorFactory $validatorFactory,
         FormRepo $formRepo,
-        Sender $sender,
-        IEventDispatcher $eventDispatcher
+        ValidatorFactory $validatorFactory,
+        IEventDispatcher $eventDispatcher,
+        Sender $sender
     ) {
-        $this->validatorFactory = $validatorFactory;
         $this->formRepo         = $formRepo;
-        $this->sender           = $sender;
+        $this->validatorFactory = $validatorFactory;
         $this->eventDispatcher  = $eventDispatcher;
+        $this->sender           = $sender;
     }
 
     /**
@@ -69,13 +69,10 @@ class Message
             try {
                 $form = $this->formRepo->getById($formIdentifier);
             } catch (OrmException $e) {
-                unset($this->forms[$formIdentifier]);
-
                 return null;
             }
         }
 
-        $this->forms[$form->getId()]         = $form;
         $this->forms[$form->getIdentifier()] = $form;
 
         return $form;
@@ -129,10 +126,12 @@ class Message
         /** @var Form $form */
         $form = $this->getForm($formIdentifier);
         if (null === $form) {
-            return [];
+            throw new \InvalidArgumentException();
         }
 
-        $validator = $this->validatorFactory->setMaxBodyLength($form->getMaxBodyLength())->createValidator();
+        $validator = $this->validatorFactory
+            ->setMaxBodyLength($form->getMaxBodyLength())
+            ->createValidator();
 
         if ($validator->isValid($postData)) {
             return [];

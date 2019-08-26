@@ -21,6 +21,9 @@ class Form extends ValidatorFactory
             ->uuid();
 
         $validator
+            ->field('identifier');
+
+        $validator
             ->field('name')
             ->required();
 

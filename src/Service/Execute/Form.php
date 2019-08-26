@@ -66,16 +66,14 @@ class Form extends RepoServiceAbstract
         assert($entity instanceof Entity, new \InvalidArgumentException('Invalid entity'));
 
         $name          = (string)$postData['name'];
-        $identifier    = (string)$postData['identifier'];
+        $identifier    = empty($postData['identifier']) ? $name : (string)$postData['identifier'];
         $toName        = (string)$postData['to_name'];
         $toEmail       = (string)$postData['to_email'];
         $successUrl    = (string)$postData['success_url'];
         $failureUrl    = (string)$postData['failure_url'];
         $maxBodyLength = (int)$postData['max_body_length'];
 
-        if (!$identifier) {
-            $identifier = $this->slugify->slugify($name);
-        }
+        $identifier = $this->slugify->slugify($identifier);
 
         $entity
             ->setName($name)

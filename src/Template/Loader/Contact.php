@@ -94,6 +94,6 @@ class Contact implements ILoader
      */
     public function hasAnyChangedSince(array $identifiers, string $cacheTime): bool
     {
-        return count($identifiers);
+        return count($identifiers) > 0;
     }
 }
