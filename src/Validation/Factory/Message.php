@@ -44,15 +44,14 @@ class Message extends ValidatorFactory
             ->field('subject')
             ->required();
 
+        $validator
+            ->field('body')
+            ->required();
+
         if ($this->maxBodyLength) {
             $validator
                 ->field('body')
-                ->max($this->maxBodyLength)
-                ->required();
-        } else {
-            $validator
-                ->field('body')
-                ->required();
+                ->max($this->maxBodyLength);
         }
 
         return $validator;
