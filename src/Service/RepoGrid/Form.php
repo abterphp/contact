@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AbterPhp\Contact\Service\RepoGrid;
 
-use AbterPhp\Admin\Http\Service\RepoGrid\RepoGridAbstract;
+use AbterPhp\Admin\Service\RepoGrid\RepoGridAbstract;
 use AbterPhp\Contact\Grid\Factory\Form as GridFactory;
 use AbterPhp\Contact\Orm\FormRepo as Repo;
 use AbterPhp\Framework\Databases\Queries\FoundRows;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace AbterPhp\Contact\Service\Execute;
 
-use AbterPhp\Admin\Http\Service\Execute\RepoServiceAbstract;
+use AbterPhp\Admin\Service\Execute\RepoServiceAbstract;
 use AbterPhp\Contact\Domain\Entities\Form as Entity;
 use AbterPhp\Contact\Orm\FormRepo as GridRepo;
 use AbterPhp\Contact\Validation\Factory\Form as ValidatorFactory;
