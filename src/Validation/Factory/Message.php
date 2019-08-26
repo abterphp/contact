@@ -48,10 +48,10 @@ class Message extends ValidatorFactory
             ->field('body')
             ->required();
 
-        if ($this->maxBodyLength) {
+        if ($this->maxBodyLength > 0) {
             $validator
                 ->field('body')
-                ->max($this->maxBodyLength);
+                ->maxLength($this->maxBodyLength);
         }
 
         return $validator;

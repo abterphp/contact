@@ -178,7 +178,7 @@ class MessageTest extends TestCase
         $formStub->expects($this->any())->method('getMaxBodyLength')->willReturn($maxBodyLength);
 
         $this->gridRepoMock->expects($this->any())->method('getByIdentifier')->willReturn($formStub);
-        
+
         $errorsMock = $this->createMock(ErrorCollection::class);
         $errorsMock->expects($this->any())->method('getAll')->willReturn($errors);
 

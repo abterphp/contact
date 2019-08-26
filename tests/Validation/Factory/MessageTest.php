@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AbterPhp\Contact\Validation\Factory;
 
 use AbterPhp\Admin\TestDouble\Validation\StubRulesFactory;
+use AbterPhp\Framework\Validation\Rules\MaxLength;
 use AbterPhp\Framework\Validation\Rules\Uuid;
 use Opulence\Validation\IValidator;
 use Opulence\Validation\Rules\Factories\RulesFactory;
@@ -23,7 +24,13 @@ class MessageTest extends TestCase
     {
         parent::setUp();
 
-        $this->rulesFactoryMock = StubRulesFactory::createRulesFactory($this, ['uuid' => new Uuid()]);
+        $this->rulesFactoryMock = StubRulesFactory::createRulesFactory(
+            $this,
+            [
+                'maxLength' => new MaxLength(),
+                'uuid'      => new Uuid(),
+            ]
+        );
 
         $this->sut = new Message($this->rulesFactoryMock);
     }
@@ -36,6 +43,7 @@ class MessageTest extends TestCase
         return [
             'empty-data'                          => [
                 [],
+                0,
                 false,
             ],
             'valid-data'                          => [
@@ -45,6 +53,7 @@ class MessageTest extends TestCase
                     'subject'    => 'bar',
                     'body'       => 'baz',
                 ],
+                0,
                 true,
             ],
             'valid-data-missing-all-not-required' => [
@@ -54,6 +63,7 @@ class MessageTest extends TestCase
                     'subject'    => 'bar',
                     'body'       => 'baz',
                 ],
+                0,
                 true,
             ],
             'invalid-name-missing'                => [
@@ -62,6 +72,7 @@ class MessageTest extends TestCase
                     'subject'    => 'bar',
                     'body'       => 'baz',
                 ],
+                0,
                 false,
             ],
             'invalid-name-empty'                  => [
@@ -71,57 +82,64 @@ class MessageTest extends TestCase
                     'subject'    => 'bar',
                     'body'       => 'baz',
                 ],
+                0,
                 false,
             ],
-            'invalid-email-missing'                => [
+            'invalid-email-missing'               => [
                 [
-                    'from_name'  => 'foo',
-                    'subject'    => 'bar',
-                    'body'       => 'baz',
+                    'from_name' => 'foo',
+                    'subject'   => 'bar',
+                    'body'      => 'baz',
                 ],
+                0,
                 false,
             ],
-            'invalid-email-empty'                  => [
+            'invalid-email-empty'                 => [
                 [
                     'from_name'  => 'foo',
                     'from_email' => '',
                     'subject'    => 'bar',
                     'body'       => 'baz',
                 ],
+                0,
                 false,
             ],
-            'invalid-email-not-valid-email'                  => [
+            'invalid-email-not-valid-email'       => [
                 [
                     'from_name'  => 'foo',
                     'from_email' => 'jane@@example.com',
                     'subject'    => 'bar',
                     'body'       => 'baz',
                 ],
+                0,
                 false,
             ],
-            'invalid-subject-missing'                  => [
+            'invalid-subject-missing'             => [
                 [
                     'from_name'  => 'foo',
                     'from_email' => 'jane@example.com',
                     'body'       => 'baz',
                 ],
+                0,
                 false,
             ],
-            'invalid-subject-empty'                  => [
+            'invalid-subject-empty'               => [
                 [
                     'from_name'  => 'foo',
                     'from_email' => 'jane@example.com',
                     'subject'    => '',
                     'body'       => 'baz',
                 ],
+                0,
                 false,
             ],
-            'invalid-body-missing'                  => [
+            'invalid-body-missing'                => [
                 [
                     'from_name'  => 'foo',
                     'from_email' => 'jane@example.com',
                     'subject'    => 'bar',
                 ],
+                0,
                 false,
             ],
             'invalid-body-empty'                  => [
@@ -131,6 +149,17 @@ class MessageTest extends TestCase
                     'subject'    => 'bar',
                     'body'       => '',
                 ],
+                0,
+                false,
+            ],
+            'invalid-body-too-long'               => [
+                [
+                    'from_name'  => 'foo',
+                    'from_email' => 'jane@example.com',
+                    'subject'    => 'bar',
+                    'body'       => 'baz',
+                ],
+                2,
                 false,
             ],
         ];
@@ -140,11 +169,12 @@ class MessageTest extends TestCase
      * @dataProvider createValidatorProvider
      *
      * @param array $data
+     * @param int   $maxBodyLength
      * @param bool  $expectedResult
      */
-    public function testCreateValidator(array $data, bool $expectedResult)
+    public function testCreateValidator(array $data, int $maxBodyLength, bool $expectedResult)
     {
-        $validator = $this->sut->createValidator();
+        $validator = $this->sut->setMaxBodyLength($maxBodyLength)->createValidator();
 
         $this->assertInstanceOf(IValidator::class, $validator);
 
