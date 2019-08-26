@@ -12,16 +12,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/abterphp/admin.git",
-                "reference": "186df75406bb4ea0315e2a7a899d4c119af40948"
+                "reference": "09c076cd4c509695e42bf6cde9bd9cf4e9da4672"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/abterphp/admin/zipball/186df75406bb4ea0315e2a7a899d4c119af40948",
-                "reference": "186df75406bb4ea0315e2a7a899d4c119af40948",
+                "url": "https://api.github.com/repos/abterphp/admin/zipball/09c076cd4c509695e42bf6cde9bd9cf4e9da4672",
+                "reference": "09c076cd4c509695e42bf6cde9bd9cf4e9da4672",
                 "shasum": ""
             },
             "require": {
-                "abterphp/framework": "dev-master"
+                "abterphp/framework": "dev-master",
+                "ext-json": "*"
             },
             "require-dev": {
                 "phan/phan": "^2.2",
@@ -53,7 +54,7 @@
                 }
             ],
             "description": "Admin module for AbterPHP",
-            "time": "2019-08-13T21:17:05+00:00"
+            "time": "2019-08-26T01:00:43+00:00"
         },
         {
             "name": "abterphp/framework",
@@ -61,12 +62,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/abterphp/framework.git",
-                "reference": "0346bc5a29508d15d8c29851645adc74599bebea"
+                "reference": "c24a91d2bfb61e08d463a9e4e5d83077479144c6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/abterphp/framework/zipball/0346bc5a29508d15d8c29851645adc74599bebea",
-                "reference": "0346bc5a29508d15d8c29851645adc74599bebea",
+                "url": "https://api.github.com/repos/abterphp/framework/zipball/c24a91d2bfb61e08d463a9e4e5d83077479144c6",
+                "reference": "c24a91d2bfb61e08d463a9e4e5d83077479144c6",
                 "shasum": ""
             },
             "require": {
@@ -123,7 +124,7 @@
                 }
             ],
             "description": "Foundations for AbterPHP",
-            "time": "2019-08-13T21:02:59+00:00"
+            "time": "2019-08-26T00:36:24+00:00"
         },
         {
             "name": "abterphp/website",
@@ -131,12 +132,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/abterphp/website.git",
-                "reference": "f569a95062fcf74413ae2a66f4c1d5793e42ee23"
+                "reference": "f98e7f02adf9b5ac68fb961d974de8b2efe185fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/abterphp/website/zipball/f569a95062fcf74413ae2a66f4c1d5793e42ee23",
-                "reference": "f569a95062fcf74413ae2a66f4c1d5793e42ee23",
+                "url": "https://api.github.com/repos/abterphp/website/zipball/f98e7f02adf9b5ac68fb961d974de8b2efe185fc",
+                "reference": "f98e7f02adf9b5ac68fb961d974de8b2efe185fc",
                 "shasum": ""
             },
             "require": {
@@ -170,7 +171,7 @@
                 }
             ],
             "description": "Website module for AbterPHP",
-            "time": "2019-08-13T21:27:17+00:00"
+            "time": "2019-08-26T01:06:31+00:00"
         },
         {
             "name": "bjeavons/zxcvbn-php",
@@ -876,16 +877,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.53",
+            "version": "1.0.55",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "08e12b7628f035600634a5e76d95b5eb66cea674"
+                "reference": "33c91155537c6dc899eacdc54a13ac6303f156e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/08e12b7628f035600634a5e76d95b5eb66cea674",
-                "reference": "08e12b7628f035600634a5e76d95b5eb66cea674",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/33c91155537c6dc899eacdc54a13ac6303f156e6",
+                "reference": "33c91155537c6dc899eacdc54a13ac6303f156e6",
                 "shasum": ""
             },
             "require": {
@@ -956,7 +957,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2019-06-18T20:09:29+00:00"
+            "time": "2019-08-24T11:17:19+00:00"
         },
         {
             "name": "league/oauth2-server",
@@ -1321,16 +1322,16 @@
         },
         {
             "name": "nyholm/psr7",
-            "version": "1.1.0",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Nyholm/psr7.git",
-                "reference": "701fe7ea8c12c07b985b156d589134d328160cf7"
+                "reference": "27c828a165ff936f9fe9056baa9cabe0c70a423c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Nyholm/psr7/zipball/701fe7ea8c12c07b985b156d589134d328160cf7",
-                "reference": "701fe7ea8c12c07b985b156d589134d328160cf7",
+                "url": "https://api.github.com/repos/Nyholm/psr7/zipball/27c828a165ff936f9fe9056baa9cabe0c70a423c",
+                "reference": "27c828a165ff936f9fe9056baa9cabe0c70a423c",
                 "shasum": ""
             },
             "require": {
@@ -1379,7 +1380,7 @@
                 "psr-17",
                 "psr-7"
             ],
-            "time": "2019-02-16T17:20:43+00:00"
+            "time": "2019-08-22T18:22:08+00:00"
         },
         {
             "name": "nyholm/psr7-server",
@@ -2613,19 +2614,23 @@
         },
         {
             "name": "netresearch/jsonmapper",
-            "version": "v1.5.2",
+            "version": "v1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cweiske/jsonmapper.git",
-                "reference": "caf41ab74ac7252f5f46db6c16ab0a8358e2e55c"
+                "reference": "0d4d1b48d682a93b6bfedf60b88c7750e9cb0b06"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cweiske/jsonmapper/zipball/caf41ab74ac7252f5f46db6c16ab0a8358e2e55c",
-                "reference": "caf41ab74ac7252f5f46db6c16ab0a8358e2e55c",
+                "url": "https://api.github.com/repos/cweiske/jsonmapper/zipball/0d4d1b48d682a93b6bfedf60b88c7750e9cb0b06",
+                "reference": "0d4d1b48d682a93b6bfedf60b88c7750e9cb0b06",
                 "shasum": ""
             },
             "require": {
+                "ext-json": "*",
+                "ext-pcre": "*",
+                "ext-reflection": "*",
+                "ext-spl": "*",
                 "php": ">=5.6"
             },
             "require-dev": {
@@ -2651,7 +2656,7 @@
                 }
             ],
             "description": "Map nested JSON structures onto PHP classes",
-            "time": "2019-08-04T19:56:28+00:00"
+            "time": "2019-08-15T19:41:25+00:00"
         },
         {
             "name": "pdepend/pdepend",
@@ -2695,16 +2700,16 @@
         },
         {
             "name": "phan/phan",
-            "version": "2.2.10",
+            "version": "2.2.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phan/phan.git",
-                "reference": "a19dc65091abb4c87374a998912fcc9ae7de41d0"
+                "reference": "ce6cb621d473df36e0d71d9f8c2b2e421135204f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phan/phan/zipball/a19dc65091abb4c87374a998912fcc9ae7de41d0",
-                "reference": "a19dc65091abb4c87374a998912fcc9ae7de41d0",
+                "url": "https://api.github.com/repos/phan/phan/zipball/ce6cb621d473df36e0d71d9f8c2b2e421135204f",
+                "reference": "ce6cb621d473df36e0d71d9f8c2b2e421135204f",
                 "shasum": ""
             },
             "require": {
@@ -2760,7 +2765,7 @@
                 "php",
                 "static"
             ],
-            "time": "2019-08-12T23:40:39+00:00"
+            "time": "2019-08-18T19:08:45+00:00"
         },
         {
             "name": "phar-io/manifest",
@@ -4735,16 +4740,16 @@
         },
         {
             "name": "webmozart/assert",
-            "version": "1.4.0",
+            "version": "1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webmozart/assert.git",
-                "reference": "83e253c8e0be5b0257b881e1827274667c5c17a9"
+                "reference": "88e6d84706d09a236046d686bbea96f07b3a34f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozart/assert/zipball/83e253c8e0be5b0257b881e1827274667c5c17a9",
-                "reference": "83e253c8e0be5b0257b881e1827274667c5c17a9",
+                "url": "https://api.github.com/repos/webmozart/assert/zipball/88e6d84706d09a236046d686bbea96f07b3a34f4",
+                "reference": "88e6d84706d09a236046d686bbea96f07b3a34f4",
                 "shasum": ""
             },
             "require": {
@@ -4752,8 +4757,7 @@
                 "symfony/polyfill-ctype": "^1.8"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.6",
-                "sebastian/version": "^1.0.1"
+                "phpunit/phpunit": "^4.8.36 || ^7.5.13"
             },
             "type": "library",
             "extra": {
@@ -4782,7 +4786,7 @@
                 "check",
                 "validate"
             ],
-            "time": "2018-12-25T11:19:39+00:00"
+            "time": "2019-08-24T08:43:50+00:00"
         }
     ],
     "aliases": [],
