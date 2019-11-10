@@ -21,7 +21,7 @@
   "minimum-stability": "dev",
   "prefer-stable": true,
   "require": {
-    "abterphp/website": "dev-master"
+    "abterphp/website": "*"
   },
   "require-dev": {
     "phpunit/phpunit": "^8.4",
