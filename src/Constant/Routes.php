@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace AbterPhp\Contact\Constant;
 
-class Routes
+use AbterPhp\Framework\Constant\Routes as FrameworkRoutes;
+
+class Routes extends FrameworkRoutes
 {
     const ROUTE_CONTACT = 'contact';
 
