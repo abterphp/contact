@@ -66,8 +66,8 @@ class FormSqlDataMapperTest extends DataMapperTestCase
         $failureUrl    = 'https://failure.example.com/';
         $maxBodyLength = 16;
 
-        $sql       = 'UPDATE contact_forms AS contact_forms SET deleted = ? WHERE (id = ?)'; // phpcs:ignore
-        $values    = [[1, \PDO::PARAM_INT], [$id, \PDO::PARAM_STR]];
+        $sql       = 'UPDATE contact_forms AS contact_forms SET deleted_at = NOW() WHERE (id = ?)'; // phpcs:ignore
+        $values    = [[$id, \PDO::PARAM_STR]];
         $statement = MockStatementFactory::createWriteStatement($this, $values);
         MockStatementFactory::prepare($this, $this->writeConnectionMock, $sql, $statement);
 
@@ -87,7 +87,7 @@ class FormSqlDataMapperTest extends DataMapperTestCase
         $failureUrl    = 'https://failure.example.com/';
         $maxBodyLength = 16;
 
-        $sql          = 'SELECT cf.id, cf.name, cf.identifier, cf.to_name, cf.to_email, cf.success_url, cf.failure_url, cf.max_body_length FROM contact_forms AS cf WHERE (cf.deleted = 0)'; // phpcs:ignore
+        $sql          = 'SELECT cf.id, cf.name, cf.identifier, cf.to_name, cf.to_email, cf.success_url, cf.failure_url, cf.max_body_length FROM contact_forms AS cf WHERE (cf.deleted_at IS NULL)'; // phpcs:ignore
         $values       = [];
         $expectedData = [
             [
@@ -120,7 +120,7 @@ class FormSqlDataMapperTest extends DataMapperTestCase
         $failureUrl    = 'https://failure.example.com/';
         $maxBodyLength = 16;
 
-        $sql          = 'SELECT SQL_CALC_FOUND_ROWS cf.id, cf.name, cf.identifier, cf.to_name, cf.to_email, cf.success_url, cf.failure_url, cf.max_body_length FROM contact_forms AS cf WHERE (cf.deleted = 0) LIMIT 10 OFFSET 0'; // phpcs:ignore
+        $sql          = 'SELECT SQL_CALC_FOUND_ROWS cf.id, cf.name, cf.identifier, cf.to_name, cf.to_email, cf.success_url, cf.failure_url, cf.max_body_length FROM contact_forms AS cf WHERE (cf.deleted_at IS NULL) LIMIT 10 OFFSET 0'; // phpcs:ignore
         $values       = [];
         $expectedData = [
             [
@@ -156,7 +156,7 @@ class FormSqlDataMapperTest extends DataMapperTestCase
         $orders     = ['block_layouts.identifier ASC'];
         $conditions = ['block_layouts.identifier LIKE \'abc%\'', 'block_layouts.identifier LIKE \'%bca\''];
 
-        $sql          = "SELECT SQL_CALC_FOUND_ROWS cf.id, cf.name, cf.identifier, cf.to_name, cf.to_email, cf.success_url, cf.failure_url, cf.max_body_length FROM contact_forms AS cf WHERE (cf.deleted = 0) AND (block_layouts.identifier LIKE 'abc%') AND (block_layouts.identifier LIKE '%bca') ORDER BY block_layouts.identifier ASC LIMIT 10 OFFSET 0"; // phpcs:ignore
+        $sql          = "SELECT SQL_CALC_FOUND_ROWS cf.id, cf.name, cf.identifier, cf.to_name, cf.to_email, cf.success_url, cf.failure_url, cf.max_body_length FROM contact_forms AS cf WHERE (cf.deleted_at IS NULL) AND (block_layouts.identifier LIKE 'abc%') AND (block_layouts.identifier LIKE '%bca') ORDER BY block_layouts.identifier ASC LIMIT 10 OFFSET 0"; // phpcs:ignore
         $values       = [];
         $expectedData = [
             [
@@ -189,7 +189,7 @@ class FormSqlDataMapperTest extends DataMapperTestCase
         $failureUrl    = 'https://failure.example.com/';
         $maxBodyLength = 16;
 
-        $sql          = 'SELECT cf.id, cf.name, cf.identifier, cf.to_name, cf.to_email, cf.success_url, cf.failure_url, cf.max_body_length FROM contact_forms AS cf WHERE (cf.deleted = 0) AND (cf.id = :form_id)'; // phpcs:ignore
+        $sql          = 'SELECT cf.id, cf.name, cf.identifier, cf.to_name, cf.to_email, cf.success_url, cf.failure_url, cf.max_body_length FROM contact_forms AS cf WHERE (cf.deleted_at IS NULL) AND (cf.id = :form_id)'; // phpcs:ignore
         $values       = ['form_id' => [$id, \PDO::PARAM_STR]];
         $expectedData = [
             [
@@ -222,7 +222,7 @@ class FormSqlDataMapperTest extends DataMapperTestCase
         $failureUrl    = 'https://failure.example.com/';
         $maxBodyLength = 16;
 
-        $sql          = 'SELECT cf.id, cf.name, cf.identifier, cf.to_name, cf.to_email, cf.success_url, cf.failure_url, cf.max_body_length FROM contact_forms AS cf WHERE (cf.deleted = 0) AND (cf.identifier = :form_identifier)'; // phpcs:ignore
+        $sql          = 'SELECT cf.id, cf.name, cf.identifier, cf.to_name, cf.to_email, cf.success_url, cf.failure_url, cf.max_body_length FROM contact_forms AS cf WHERE (cf.deleted_at IS NULL) AND (cf.identifier = :form_identifier)'; // phpcs:ignore
         $values       = ['form_identifier' => [$identifier, \PDO::PARAM_STR]];
         $expectedData = [
             [
@@ -255,7 +255,7 @@ class FormSqlDataMapperTest extends DataMapperTestCase
         $failureUrl    = 'https://failure.example.com/';
         $maxBodyLength = 16;
 
-        $sql       = 'UPDATE contact_forms AS contact_forms SET name = ?, identifier = ?, to_name = ?, to_email = ?, success_url = ?, failure_url = ?, max_body_length = ? WHERE (id = ?) AND (deleted = 0)'; // phpcs:ignore
+        $sql       = 'UPDATE contact_forms AS contact_forms SET name = ?, identifier = ?, to_name = ?, to_email = ?, success_url = ?, failure_url = ?, max_body_length = ? WHERE (id = ?) AND (deleted_at IS NULL)'; // phpcs:ignore
         $values    = [
             [$name, \PDO::PARAM_STR],
             [$identifier, \PDO::PARAM_STR],

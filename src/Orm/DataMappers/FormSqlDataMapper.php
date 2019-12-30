@@ -6,6 +6,7 @@ namespace AbterPhp\Contact\Orm\DataMappers;
 
 use AbterPhp\Contact\Domain\Entities\Form as Entity;
 use Opulence\Orm\DataMappers\SqlDataMapper;
+use Opulence\QueryBuilders\Expression;
 use Opulence\QueryBuilders\MySql\QueryBuilder;
 use Opulence\QueryBuilders\MySql\SelectQuery;
 
@@ -52,7 +53,7 @@ class FormSqlDataMapper extends SqlDataMapper implements IFormDataMapper
         assert($entity instanceof Entity, new \InvalidArgumentException());
 
         $query = (new QueryBuilder())
-            ->update('contact_forms', 'contact_forms', ['deleted' => [1, \PDO::PARAM_INT]])
+            ->update('contact_forms', 'contact_forms', ['deleted_at' => new Expression('NOW()')])
             ->where('id = ?')
             ->addUnnamedPlaceholderValue($entity->getId(), \PDO::PARAM_STR);
 
@@ -171,7 +172,7 @@ class FormSqlDataMapper extends SqlDataMapper implements IFormDataMapper
                 ]
             )
             ->where('id = ?')
-            ->andWhere('deleted = 0')
+            ->andWhere('deleted_at IS NULL')
             ->addUnnamedPlaceholderValue($entity->getId(), \PDO::PARAM_STR);
 
         $sql    = $query->getSql();
@@ -219,7 +220,7 @@ class FormSqlDataMapper extends SqlDataMapper implements IFormDataMapper
                 'cf.max_body_length'
             )
             ->from('contact_forms', 'cf')
-            ->where('cf.deleted = 0');
+            ->where('cf.deleted_at IS NULL');
 
         return $query;
     }
