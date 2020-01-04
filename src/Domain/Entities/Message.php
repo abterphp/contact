@@ -175,19 +175,25 @@ class Message implements IStringerEntity
     }
 
     /**
+     * @return array|null
+     */
+    public function toData(): ?array
+    {
+        return [
+            'id'         => $this->getId(),
+            'form'       => $this->getForm(),
+            'subject'    => $this->getSubject(),
+            'body'       => $this->getBody(),
+            'from_name'  => $this->getFromName(),
+            'from_email' => $this->getFromEmail(),
+        ];
+    }
+
+    /**
      * @return string
      */
     public function toJSON(): string
     {
-        return json_encode(
-            [
-                'id'         => $this->getId(),
-                'form'       => $this->getForm(),
-                'subject'    => $this->getSubject(),
-                'body'       => $this->getBody(),
-                'from_name'  => $this->getFromName(),
-                'from_email' => $this->getFromEmail(),
-            ]
-        );
+        return json_encode($this->toData());
     }
 }

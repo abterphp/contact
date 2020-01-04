@@ -227,21 +227,27 @@ class Form implements IStringerEntity
     }
 
     /**
+     * @return array|null
+     */
+    public function toData(): ?array
+    {
+        return [
+            'id'              => $this->getId(),
+            'name'            => $this->getName(),
+            'identifier'      => $this->getIdentifier(),
+            'to_name'         => $this->getToName(),
+            'to_email'        => $this->getToEmail(),
+            'success_url'     => $this->getSuccessUrl(),
+            'failure_url'     => $this->getFailureUrl(),
+            'max_body_length' => $this->getMaxBodyLength(),
+        ];
+    }
+
+    /**
      * @return string
      */
     public function toJSON(): string
     {
-        return json_encode(
-            [
-                'id'              => $this->getId(),
-                'name'            => $this->getName(),
-                'identifier'      => $this->getIdentifier(),
-                'to_name'         => $this->getToName(),
-                'to_email'        => $this->getToEmail(),
-                'success_url'     => $this->getSuccessUrl(),
-                'failure_url'     => $this->getFailureUrl(),
-                'max_body_length' => $this->getMaxBodyLength(),
-            ]
-        );
+        return json_encode($this->toData());
     }
 }
