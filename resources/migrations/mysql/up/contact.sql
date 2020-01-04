@@ -3,7 +3,7 @@
 --
 
 INSERT INTO `admin_resources` (`id`, `identifier`)
-VALUES (UUID(), 'contactforms');
+VALUES (UUID(), 'contact-forms');
 
 --
 -- Table data for table `pages`

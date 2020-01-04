@@ -29,7 +29,7 @@ $router->group(
             ],
             function (Router $router) {
                 $entities = [
-                    'contactforms' => 'ContactForm',
+                    'contact-forms' => 'ContactForm',
                 ];
 
                 foreach ($entities as $route => $controllerName) {

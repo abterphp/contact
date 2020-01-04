@@ -12,12 +12,12 @@ class Routes extends FrameworkRoutes
 
     const PATH_CONTACT = '/contact/:formIdentifier';
 
-    const ROUTE_CONTACT_FORMS        = 'contactforms';
-    const ROUTE_CONTACT_FORMS_NEW    = 'contactforms-new';
-    const ROUTE_CONTACT_FORMS_EDIT   = 'contactforms-edit';
-    const ROUTE_CONTACT_FORMS_DELETE = 'contactforms-delete';
-    const PATH_CONTACT_FORMS         = '/contactforms';
-    const PATH_CONTACT_FORMS_NEW     = '/contactforms/new';
-    const PATH_CONTACT_FORMS_EDIT    = '/contactforms/:entityId/edit';
-    const PATH_CONTACT_FORMS_DELETE  = '/contactforms/:entityId/delete';
+    const ROUTE_CONTACT_FORMS        = 'contact-forms';
+    const ROUTE_CONTACT_FORMS_NEW    = 'contact-forms-new';
+    const ROUTE_CONTACT_FORMS_EDIT   = 'contact-forms-edit';
+    const ROUTE_CONTACT_FORMS_DELETE = 'contact-forms-delete';
+    const PATH_CONTACT_FORMS         = '/contact-forms';
+    const PATH_CONTACT_FORMS_NEW     = '/contact-forms/new';
+    const PATH_CONTACT_FORMS_EDIT    = '/contact-forms/:entityId/edit';
+    const PATH_CONTACT_FORMS_DELETE  = '/contact-forms/:entityId/delete';
 }

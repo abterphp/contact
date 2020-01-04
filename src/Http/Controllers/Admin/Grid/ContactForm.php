@@ -21,6 +21,8 @@ class ContactForm extends GridAbstract
     const ENTITY_TITLE_SINGULAR = 'contact:contactForm';
     const ENTITY_TITLE_PLURAL   = 'contact:contactForms';
 
+    const ROUTING_PATH = 'contact-forms';
+
     /** @var string */
     protected $resource = 'contactforms';
 
