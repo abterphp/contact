@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AbterPhp\Contact\Template\Loader;
 
 use AbterPhp\Contact\Constant\Event;
-use AbterPhp\Contact\Constant\Routes;
+use AbterPhp\Contact\Constant\Route;
 use AbterPhp\Contact\Form\Factory\Contact as FormFactory;
 use AbterPhp\Framework\Events\FormReady;
 use AbterPhp\Framework\I18n\ITranslator;
@@ -63,7 +63,7 @@ class Contact implements ILoader
         $templateData = [];
         foreach ($identifiers as $identifier) {
             // @phan-suppress-next-line PhanTypeMismatchArgument
-            $url  = $this->urlGenerator->createFromName(Routes::ROUTE_CONTACT, $identifier);
+            $url  = $this->urlGenerator->createFromName(Route::CONTACT, $identifier);
             $form = $this->formFactory->create($url, RequestMethods::POST, '');
 
             $form->setTranslator($this->translator);

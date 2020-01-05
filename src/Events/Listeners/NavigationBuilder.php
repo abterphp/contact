@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace AbterPhp\Contact\Events\Listeners;
 
-use AbterPhp\Contact\Constant\Routes;
+use AbterPhp\Contact\Constant\Resource;
+use AbterPhp\Contact\Constant\Route;
 use AbterPhp\Framework\Constant\Html5;
 use AbterPhp\Framework\Events\NavigationReady;
 use AbterPhp\Framework\Html\Component\ButtonFactory;
@@ -55,8 +56,8 @@ class NavigationBuilder
         $text = 'contact:forms';
         $icon = 'assignment';
 
-        $button   = $this->buttonFactory->createFromName($text, Routes::ROUTE_CONTACT_FORMS, [], $icon);
-        $resource = $this->getAdminResource(Routes::ROUTE_CONTACT_FORMS);
+        $button   = $this->buttonFactory->createFromName($text, Route::CONTACT_FORMS_LIST, [], $icon);
+        $resource = $this->getAdminResource(Resource::CONTACT_FORMS);
 
         $item = new Item($button);
         $item->setResource($resource);
@@ -73,8 +74,8 @@ class NavigationBuilder
         $text = 'contact:contact';
         $icon = 'contacts';
 
-        $button   = $this->buttonFactory->createFromName($text, Routes::ROUTE_CONTACT_FORMS, [], $icon);
-        $resource = $this->getAdminResource(Routes::ROUTE_CONTACT_FORMS);
+        $button   = $this->buttonFactory->createFromName($text, Route::CONTACT_FORMS_LIST, [], $icon);
+        $resource = $this->getAdminResource(Resource::CONTACT_FORMS);
 
         $item = new Item($button);
         $item->setResource($resource);

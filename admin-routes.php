@@ -6,7 +6,7 @@ use AbterPhp\Admin\Config\Routes as RoutesConfig;
 use AbterPhp\Admin\Http\Middleware\Authentication;
 use AbterPhp\Admin\Http\Middleware\Authorization;
 use AbterPhp\Admin\Http\Middleware\LastGridPage;
-use AbterPhp\Contact\Constant\Routes as RoutesConstant;
+use AbterPhp\Contact\Constant\Route as RouteConstant;
 use AbterPhp\Framework\Authorization\Constant\Role;
 use Opulence\Routing\Router;
 
@@ -33,15 +33,13 @@ $router->group(
                 ];
 
                 foreach ($entities as $route => $controllerName) {
-                    $path = strtolower($controllerName);
-
                     /** @see \AbterPhp\Contact\Http\Controllers\Admin\Grid\ContactForm::show() */
                     $router->get(
-                        "/${path}",
+                        "/${route}",
                         "Admin\Grid\\${controllerName}@show",
                         [
-                            RoutesConstant::OPTION_NAME       => "${route}",
-                            RoutesConstant::OPTION_MIDDLEWARE => [
+                            RouteConstant::OPTION_NAME       => "${route}-list",
+                            RouteConstant::OPTION_MIDDLEWARE => [
                                 Authorization::withParameters(
                                     [
                                         Authorization::RESOURCE => $route,
@@ -54,11 +52,11 @@ $router->group(
                     );
                     /** @see \AbterPhp\Contact\Http\Controllers\Admin\Form\ContactForm::new() */
                     $router->get(
-                        "/${path}/new",
+                        "/${route}/new",
                         "Admin\Form\\${controllerName}@new",
                         [
-                            RoutesConstant::OPTION_NAME       => "${route}-new",
-                            RoutesConstant::OPTION_MIDDLEWARE => [
+                            RouteConstant::OPTION_NAME       => "${route}-new",
+                            RouteConstant::OPTION_MIDDLEWARE => [
                                 Authorization::withParameters(
                                     [
                                         Authorization::RESOURCE => $route,
@@ -70,11 +68,11 @@ $router->group(
                     );
                     /** @see \AbterPhp\Contact\Http\Controllers\Admin\Execute\ContactForm::create() */
                     $router->post(
-                        "/${path}/new",
+                        "/${route}/new",
                         "Admin\Execute\\${controllerName}@create",
                         [
-                            RoutesConstant::OPTION_NAME       => "${route}-create",
-                            RoutesConstant::OPTION_MIDDLEWARE => [
+                            RouteConstant::OPTION_NAME       => "${route}-create",
+                            RouteConstant::OPTION_MIDDLEWARE => [
                                 Authorization::withParameters(
                                     [
                                         Authorization::RESOURCE => $route,
@@ -86,11 +84,11 @@ $router->group(
                     );
                     /** @see \AbterPhp\Contact\Http\Controllers\Admin\Form\ContactForm::edit() */
                     $router->get(
-                        "/${path}/:entityId/edit",
+                        "/${route}/:entityId/edit",
                         "Admin\Form\\${controllerName}@edit",
                         [
-                            RoutesConstant::OPTION_NAME       => "${route}-edit",
-                            RoutesConstant::OPTION_MIDDLEWARE => [
+                            RouteConstant::OPTION_NAME       => "${route}-edit",
+                            RouteConstant::OPTION_MIDDLEWARE => [
                                 Authorization::withParameters(
                                     [
                                         Authorization::RESOURCE => $route,
@@ -102,11 +100,11 @@ $router->group(
                     );
                     /** @see \AbterPhp\Contact\Http\Controllers\Admin\Execute\ContactForm::update() */
                     $router->put(
-                        "/${path}/:entityId/edit",
+                        "/${route}/:entityId/edit",
                         "Admin\Execute\\${controllerName}@update",
                         [
-                            RoutesConstant::OPTION_NAME       => "${route}-update",
-                            RoutesConstant::OPTION_MIDDLEWARE => [
+                            RouteConstant::OPTION_NAME       => "${route}-update",
+                            RouteConstant::OPTION_MIDDLEWARE => [
                                 Authorization::withParameters(
                                     [
                                         Authorization::RESOURCE => $route,
@@ -118,11 +116,11 @@ $router->group(
                     );
                     /** @see \AbterPhp\Contact\Http\Controllers\Admin\Execute\ContactForm::delete() */
                     $router->get(
-                        "/${path}/:entityId/delete",
+                        "/${route}/:entityId/delete",
                         "Admin\Execute\\${controllerName}@delete",
                         [
-                            RoutesConstant::OPTION_NAME       => "${route}-delete",
-                            RoutesConstant::OPTION_MIDDLEWARE => [
+                            RouteConstant::OPTION_NAME       => "${route}-delete",
+                            RouteConstant::OPTION_MIDDLEWARE => [
                                 Authorization::withParameters(
                                     [
                                         Authorization::RESOURCE => $route,

@@ -8,13 +8,13 @@ use AbterPhp\Admin\Grid\Factory\Table\HeaderFactory;
 
 class Form extends HeaderFactory
 {
-    const GROUP_IDENTIFIER = 'contactForm-identifier';
-    const GROUP_TO_NAME    = 'contactForm-to-name';
-    const GROUP_TO_EMAIL   = 'contactForm-to-email';
+    public const GROUP_IDENTIFIER = 'contactForm-identifier';
+    public const GROUP_TO_NAME    = 'contactForm-to-name';
+    public const GROUP_TO_EMAIL   = 'contactForm-to-email';
 
-    const HEADER_IDENTIFIER = 'contact:formIdentifier';
-    const HEADER_TO_NAME    = 'contact:formToName';
-    const HEADER_TO_EMAIL   = 'contact:formToEmail';
+    private const HEADER_IDENTIFIER = 'contact:formIdentifier';
+    private const HEADER_TO_NAME    = 'contact:formToName';
+    private const HEADER_TO_EMAIL   = 'contact:formToEmail';
 
     /** @var array */
     protected $headers = [

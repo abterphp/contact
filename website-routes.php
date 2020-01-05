@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use AbterPhp\Contact\Constant\Routes as RoutesConstant;
+use AbterPhp\Contact\Constant\Route as RouteConstant;
 use Opulence\Routing\Router;
 
 /**
@@ -17,9 +17,9 @@ $router->group(
     function (Router $router) {
         /** @see \AbterPhp\Contact\Http\Controllers\Website\Contact::submit() */
         $router->post(
-            RoutesConstant::PATH_CONTACT,
+            '/contact/:formIdentifier',
             'Website\Contact@submit',
-            [RoutesConstant::OPTION_NAME => RoutesConstant::ROUTE_CONTACT]
+            [RouteConstant::OPTION_NAME => RouteConstant::CONTACT]
         );
     }
 );
