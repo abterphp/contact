@@ -4,8 +4,8 @@ return [
     'contactForm'  => 'Űrlap',
     'contactForms' => 'Űrlapok',
 
-    'fromName'  => 'Név (Feladó)',
-    'fromEmail' => 'Email (Feladó)',
+    'fromName'  => 'Név (feladó)',
+    'fromEmail' => 'Email (feladó)',
     'subject'   => 'Tárgy',
     'body'      => 'Üzenet',
     'submit'    => 'Küldés',
@@ -16,7 +16,7 @@ return [
     'toName'  => 'Címzett - név',
     'toEmail' => 'Címzett - email',
 
-    'formName'       => 'Név (Űrlap)',
+    'formName'       => 'Név (űrlap neve)',
     'formIdentifier' => 'Azonosító',
     'formToName'     => 'Név (címzett)',
     'formToEmail'    => 'Email (címzett)',

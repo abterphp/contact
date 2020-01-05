@@ -8,6 +8,7 @@ use AbterPhp\Admin\Http\Controllers\Admin\FormAbstract;
 use AbterPhp\Contact\Domain\Entities\Form as Entity;
 use AbterPhp\Contact\Form\Factory\Form as FormFactory;
 use AbterPhp\Contact\Orm\FormRepo as Repo;
+use AbterPhp\Framework\Assets\AssetManager;
 use AbterPhp\Framework\Domain\Entities\IStringerEntity;
 use AbterPhp\Framework\I18n\ITranslator;
 use AbterPhp\Framework\Session\FlashService;
@@ -26,6 +27,9 @@ class ContactForm extends FormAbstract
 
     const ROUTING_PATH = 'contact-forms';
 
+    /** @var AssetManager */
+    protected $assetManager;
+
     /** @var string */
     protected $resource = 'contactforms';
 
@@ -40,6 +44,7 @@ class ContactForm extends FormAbstract
      * @param ISession         $session
      * @param FormFactory      $formFactory
      * @param IEventDispatcher $eventDispatcher
+     * @param AssetManager     $assetManager
      */
     public function __construct(
         FlashService $flashService,
@@ -49,7 +54,8 @@ class ContactForm extends FormAbstract
         Repo $repo,
         ISession $session,
         FormFactory $formFactory,
-        IEventDispatcher $eventDispatcher
+        IEventDispatcher $eventDispatcher,
+        AssetManager $assetManager
     ) {
         parent::__construct(
             $flashService,
@@ -61,6 +67,8 @@ class ContactForm extends FormAbstract
             $formFactory,
             $eventDispatcher
         );
+
+        $this->assetManager = $assetManager;
     }
 
     /**
@@ -71,5 +79,22 @@ class ContactForm extends FormAbstract
     protected function createEntity(string $entityId): IStringerEntity
     {
         return new Entity($entityId, '', '', '', '', '', '', 0);
+    }
+
+    /**
+     * @param IStringerEntity|null $entity
+     *
+     * @throws \League\Flysystem\FileNotFoundException
+     */
+    protected function addCustomAssets(?IStringerEntity $entity = null)
+    {
+        parent::addCustomAssets($entity);
+
+        if (!($entity instanceof Entity)) {
+            return;
+        }
+
+        $footer = $this->getResourceName(static::RESOURCE_FOOTER);
+        $this->assetManager->addJs($footer, '/admin-assets/js/semi-auto.js');
     }
 }

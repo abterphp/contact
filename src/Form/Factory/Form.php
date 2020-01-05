@@ -81,13 +81,17 @@ class Form extends Base
      */
     protected function addIdentifier(Entity $entity): Form
     {
-        $this->form[] = new Input(
+        $input = new Input(
             'identifier',
             'identifier',
             $entity->getIdentifier(),
             [],
-            [Html5::ATTR_TYPE => Input::TYPE_HIDDEN]
+            [Html5::ATTR_CLASS => 'semi-auto']
         );
+        $label = new Label('identifier', 'files:fileCategoryIdentifier');
+        $help  = new Help('files:fileCategoryIdentifierHelp');
+
+        $this->form[] = new FormGroup($input, $label, $help);
 
         return $this;
     }
