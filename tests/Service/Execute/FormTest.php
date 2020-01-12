@@ -76,6 +76,7 @@ class FormTest extends TestCase
 
         $postData = [
             'name'            => $name,
+            'identifier'      => '',
             'to_name'         => $toName,
             'to_email'        => $toEmail,
             'success_url'     => $successUrl,
@@ -108,8 +109,8 @@ class FormTest extends TestCase
         $maxBodyLength = '255';
 
         $postData = [
-            'identifier'      => $identifier,
             'name'            => $name,
+            'identifier'      => $identifier,
             'to_name'         => $toName,
             'to_email'        => $toEmail,
             'success_url'     => $successUrl,

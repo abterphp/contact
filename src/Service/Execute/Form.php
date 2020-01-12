@@ -65,13 +65,17 @@ class Form extends RepoServiceAbstract
     {
         assert($entity instanceof Entity, new \InvalidArgumentException('Invalid entity'));
 
-        $name          = (string)$postData['name'];
-        $identifier    = empty($postData['identifier']) ? $name : (string)$postData['identifier'];
-        $toName        = (string)$postData['to_name'];
-        $toEmail       = (string)$postData['to_email'];
-        $successUrl    = (string)$postData['success_url'];
-        $failureUrl    = (string)$postData['failure_url'];
-        $maxBodyLength = (int)$postData['max_body_length'];
+        $name = $postData['name'];
+
+        $identifier = $postData['identifier'] ?? $entity->getIdentifier();
+        $identifier = $identifier ?: $name;
+        $identifier = $this->slugify->slugify($identifier);
+
+        $toName        = $postData['to_name'];
+        $toEmail       = $postData['to_email'];
+        $successUrl    = $postData['success_url'];
+        $failureUrl    = $postData['failure_url'];
+        $maxBodyLength = $postData['max_body_length'];
 
         $identifier = $this->slugify->slugify($identifier);
 
@@ -82,7 +86,7 @@ class Form extends RepoServiceAbstract
             ->setToEmail($toEmail)
             ->setSuccessUrl($successUrl)
             ->setFailureUrl($failureUrl)
-            ->setMaxBodyLength($maxBodyLength);
+            ->setMaxBodyLength((int)$maxBodyLength);
 
         return $entity;
     }
