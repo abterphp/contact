@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AbterPhp\Contact\Validation\Factory;
 
 use AbterPhp\Admin\TestDouble\Validation\StubRulesFactory;
+use AbterPhp\Framework\Validation\Rules\Forbidden;
 use AbterPhp\Framework\Validation\Rules\Url;
 use AbterPhp\Framework\Validation\Rules\Uuid;
 use Opulence\Validation\IValidator;
@@ -27,8 +28,9 @@ class FormTest extends TestCase
         $this->rulesFactoryMock = StubRulesFactory::createRulesFactory(
             $this,
             [
-                'uuid' => new Uuid(),
-                'url'  => new Url(),
+                'forbidden' => new Forbidden(),
+                'uuid'      => new Uuid(),
+                'url'       => new Url(),
             ]
         );
 
@@ -38,16 +40,11 @@ class FormTest extends TestCase
     /**
      * @return array
      */
-    public function createValidatorProvider(): array
+    public function createValidatorSuccessProvider(): array
     {
         return [
-            'empty-data'                          => [
-                [],
-                false,
-            ],
             'valid-data'                          => [
                 [
-                    'id'              => '465c91df-9cc7-47e2-a2ef-8fe645753148',
                     'identifier'      => 'qux',
                     'name'            => 'foo',
                     'to_name'         => 'bar',
@@ -56,51 +53,118 @@ class FormTest extends TestCase
                     'failure_url'     => 'https://failure.example.com/',
                     'max_body_length' => '255',
                 ],
-                true,
             ],
             'valid-data-missing-all-not-required' => [
                 [
                     'name'            => 'foo',
-                    'identifier'      => 'qux',
                     'to_name'         => 'bar',
                     'to_email'        => 'jane@example.com',
                     'success_url'     => 'https://example.com/success',
                     'failure_url'     => 'https://failure.example.com/',
                     'max_body_length' => '255',
                 ],
-                true,
-            ],
-            'invalid-id-not-uuid'                 => [
-                [
-                    'id'         => '465c91df-9cc7-47e2-a2ef-8fe64575314',
-                    'identifier' => 'foo',
-                ],
-                false,
-            ],
-            'invalid-identifier-missing'                 => [
-                [
-                    'id'         => '465c91df-9cc7-47e2-a2ef-8fe64575314',
-                    'identifier' => 'foo',
-                ],
-                false,
-            ],
-            'invalid-id-not-uuid'                 => [
-                [
-                    'id'         => '465c91df-9cc7-47e2-a2ef-8fe64575314',
-                    'identifier' => 'foo',
-                ],
-                false,
             ],
         ];
     }
 
     /**
-     * @dataProvider createValidatorProvider
+     * @dataProvider createValidatorSuccessProvider
      *
+     * @param array $data
+     */
+    public function testCreateValidatorSuccess(array $data)
+    {
+        $this->runTestCreateValidator($data, true);
+    }
+
+    /**
+     * @return array
+     */
+    public function createValidatorFailureProvider(): array
+    {
+        return [
+            'invalid-data-missing-name'            => [
+                [
+                    'to_name'         => 'bar',
+                    'to_email'        => 'jane@example.com',
+                    'success_url'     => 'https://example.com/success',
+                    'failure_url'     => 'https://failure.example.com/',
+                    'max_body_length' => '255',
+                ],
+            ],
+            'invalid-data-missing-to_name'         => [
+                [
+                    'name'            => 'foo',
+                    'to_email'        => 'jane@example.com',
+                    'success_url'     => 'https://example.com/success',
+                    'failure_url'     => 'https://failure.example.com/',
+                    'max_body_length' => '255',
+                ],
+            ],
+            'invalid-data-missing-to_email'        => [
+                [
+                    'name'            => 'foo',
+                    'to_name'         => 'bar',
+                    'success_url'     => 'https://example.com/success',
+                    'failure_url'     => 'https://failure.example.com/',
+                    'max_body_length' => '255',
+                ],
+            ],
+            'invalid-data-missing-success_url'     => [
+                [
+                    'name'            => 'foo',
+                    'to_name'         => 'bar',
+                    'to_email'        => 'jane@example.com',
+                    'failure_url'     => 'https://failure.example.com/',
+                    'max_body_length' => '255',
+                ],
+            ],
+            'invalid-data-missing-failure_url'     => [
+                [
+                    'name'            => 'foo',
+                    'to_name'         => 'bar',
+                    'to_email'        => 'jane@example.com',
+                    'success_url'     => 'https://example.com/success',
+                    'max_body_length' => '255',
+                ],
+            ],
+            'invalid-data-missing-max_body_length' => [
+                [
+                    'name'        => 'foo',
+                    'to_name'     => 'bar',
+                    'to_email'    => 'jane@example.com',
+                    'success_url' => 'https://example.com/success',
+                    'failure_url' => 'https://failure.example.com/',
+                ],
+            ],
+            'invalid-data-non-numeric-body_length' => [
+                [
+                    'name'            => 'foo',
+                    'to_name'         => 'bar',
+                    'to_email'        => 'jane@example.com',
+                    'success_url'     => 'https://example.com/success',
+                    'failure_url'     => 'https://failure.example.com/',
+                    'max_body_length' => 'abc',
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider createValidatorFailureProvider
+     *
+     * @param array $data
+     */
+    public function testCreateValidatorFailure(array $data)
+    {
+        $this->runTestCreateValidator($data, false);
+    }
+
+    /**
      * @param array $data
      * @param bool  $expectedResult
      */
-    public function testCreateValidator(array $data, bool $expectedResult)
+    public function runTestCreateValidator(array $data, bool $expectedResult)
     {
         $validator = $this->sut->createValidator();
 
