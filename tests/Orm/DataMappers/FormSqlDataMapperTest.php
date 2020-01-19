@@ -120,7 +120,7 @@ class FormSqlDataMapperTest extends DataMapperTestCase
         $failureUrl    = 'https://failure.example.com/';
         $maxBodyLength = 16;
 
-        $sql          = 'SELECT SQL_CALC_FOUND_ROWS cf.id, cf.name, cf.identifier, cf.to_name, cf.to_email, cf.success_url, cf.failure_url, cf.max_body_length FROM contact_forms AS cf WHERE (cf.deleted_at IS NULL) LIMIT 10 OFFSET 0'; // phpcs:ignore
+        $sql          = 'SELECT SQL_CALC_FOUND_ROWS cf.id, cf.name, cf.identifier, cf.to_name, cf.to_email, cf.success_url, cf.failure_url, cf.max_body_length FROM contact_forms AS cf WHERE (cf.deleted_at IS NULL) ORDER BY cf.name ASC LIMIT 10 OFFSET 0'; // phpcs:ignore
         $values       = [];
         $expectedData = [
             [

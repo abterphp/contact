@@ -94,6 +94,9 @@ class FormSqlDataMapper extends SqlDataMapper implements IFormDataMapper
             ->limit($pageSize)
             ->offset($limitFrom);
 
+        if (!$orders) {
+            $query->orderBy('cf.name ASC');
+        }
         foreach ($orders as $order) {
             $query->addOrderBy($order);
         }
