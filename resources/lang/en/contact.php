@@ -4,11 +4,15 @@ return [
     'contactForm'  => 'Form',
     'contactForms' => 'Forms',
 
-    'fromName'  => 'From - name',
-    'fromEmail' => 'From - email',
+    'fromName'  => 'Name',
+    'fromEmail' => 'Email',
+    'fromPhone' => 'Phone',
     'subject'   => 'Subject',
     'body'      => 'Body',
     'submit'    => 'Submit',
+
+    'phoneNumber'   => 'Phone number',
+    'noPhoneNumber' => 'None provided',
 
     'contact' => 'Contact',
     'forms'   => 'Forms',

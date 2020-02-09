@@ -136,9 +136,7 @@ class Form extends Base
         $input = new Input(
             'success_url',
             'success_url',
-            $entity->getSuccessUrl(),
-            [],
-            [Html5::ATTR_TYPE => Input::TYPE_URL]
+            $entity->getSuccessUrl()
         );
         $label = new Label('success_url', 'contact:formSuccessUrl');
         $help  = new Help('contact:hintSuccessUrl');
@@ -158,9 +156,7 @@ class Form extends Base
         $input = new Input(
             'failure_url',
             'failure_url',
-            $entity->getFailureUrl(),
-            [],
-            [Html5::ATTR_TYPE => Input::TYPE_URL]
+            $entity->getFailureUrl()
         );
         $label = new Label('failure_url', 'contact:formFailureUrl');
         $help  = new Help('contact:hintFailureUrl');

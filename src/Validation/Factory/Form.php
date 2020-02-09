@@ -38,12 +38,10 @@ class Form extends ValidatorFactory
 
         $validator
             ->field('success_url')
-            ->url()
             ->required();
 
         $validator
             ->field('failure_url')
-            ->url()
             ->required();
 
         $validator

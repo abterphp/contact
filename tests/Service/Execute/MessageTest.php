@@ -10,6 +10,7 @@ use AbterPhp\Contact\Orm\FormRepo as GridRepo;
 use AbterPhp\Contact\Validation\Factory\Message as ValidatorFactory;
 use AbterPhp\Framework\Domain\Entities\IStringerEntity;
 use AbterPhp\Framework\Email\Sender;
+use AbterPhp\Framework\I18n\ITranslator;
 use Opulence\Events\Dispatchers\IEventDispatcher;
 use Opulence\Orm\OrmException;
 use Opulence\Validation\IValidator;
@@ -34,6 +35,9 @@ class MessageTest extends TestCase
     /** @var Sender|MockObject */
     protected $senderMock;
 
+    /** @var ITranslator|MockObject */
+    protected $translatorMock;
+
     public function setUp(): void
     {
         parent::setUp();
@@ -42,12 +46,14 @@ class MessageTest extends TestCase
         $this->validatorFactoryMock = $this->createMock(ValidatorFactory::class);
         $this->eventDispatcherMock  = $this->createMock(IEventDispatcher::class);
         $this->senderMock           = $this->createMock(Sender::class);
+        $this->translatorMock       = $this->createMock(ITranslator::class);
 
         $this->sut = new Message(
             $this->gridRepoMock,
             $this->validatorFactoryMock,
             $this->eventDispatcherMock,
-            $this->senderMock
+            $this->senderMock,
+            $this->translatorMock
         );
     }
 
@@ -306,12 +312,14 @@ class MessageTest extends TestCase
         $body           = 'baz';
         $fromName       = 'Qux';
         $fromEmail      = 'qux@example.com';
+        $fromPhone      = '32 234 4567';
 
         $postData = [
             'subject'    => $subject,
             'body'       => $body,
             'from_name'  => $fromName,
             'from_email' => $fromEmail,
+            'from_phone' => $fromPhone,
         ];
 
         $entityMock = $this->createMock(Entity::class);

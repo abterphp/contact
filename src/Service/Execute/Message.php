@@ -11,11 +11,15 @@ use AbterPhp\Contact\Orm\FormRepo;
 use AbterPhp\Contact\Validation\Factory\Message as ValidatorFactory;
 use AbterPhp\Framework\Domain\Entities\IStringerEntity;
 use AbterPhp\Framework\Email\Sender;
+use AbterPhp\Framework\I18n\ITranslator;
 use Opulence\Events\Dispatchers\IEventDispatcher;
 use Opulence\Orm\OrmException;
 
 class Message
 {
+    const PHONE_NUMBER = 'contact:phoneNumber';
+    const NO_PHONE     = 'contact:noPhoneNumber';
+
     /** @var ValidatorFactory */
     protected $validatorFactory;
 
@@ -31,6 +35,9 @@ class Message
     /** @var Form[] */
     protected $forms = [];
 
+    /** @var ITranslator */
+    protected $translator;
+
     /**
      * Message constructor.
      *
@@ -38,17 +45,20 @@ class Message
      * @param ValidatorFactory $validatorFactory
      * @param IEventDispatcher $eventDispatcher
      * @param Sender           $sender
+     * @param ITranslator      $translator
      */
     public function __construct(
         FormRepo $formRepo,
         ValidatorFactory $validatorFactory,
         IEventDispatcher $eventDispatcher,
-        Sender $sender
+        Sender $sender,
+        ITranslator $translator
     ) {
         $this->formRepo         = $formRepo;
         $this->validatorFactory = $validatorFactory;
         $this->eventDispatcher  = $eventDispatcher;
         $this->sender           = $sender;
+        $this->translator       = $translator;
     }
 
     /**
@@ -177,12 +187,20 @@ class Message
             return $entity;
         }
 
+        $subject = $postData['subject'];
+
+        $body = $postData['body'] . PHP_EOL . PHP_EOL . $this->translator->translate(static::PHONE_NUMBER) . ': ';
+        $body .= $postData['from_phone'] ? $postData['from_phone'] : $this->translator->translate(static::NO_PHONE);
+
+        $name  = $postData['from_name'];
+        $email = $postData['from_email'];
+
         $entity
             ->setForm($form)
-            ->setSubject($postData['subject'])
-            ->setBody($postData['body'])
-            ->setFromName($postData['from_name'])
-            ->setFromEmail($postData['from_email']);
+            ->setSubject($subject)
+            ->setBody($body)
+            ->setFromName($name)
+            ->setFromEmail($email);
 
         return $entity;
     }

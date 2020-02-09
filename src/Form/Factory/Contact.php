@@ -34,6 +34,7 @@ class Contact extends Base
             ->addDefaultElements()
             ->addFromName()
             ->addFromEmail()
+            ->addFromPhone()
             ->addSubject()
             ->addBody()
             ->addSubmit();
@@ -80,6 +81,19 @@ class Contact extends Base
     {
         $input = new Input('from_email', 'from_email', '', [], [Html5::ATTR_TYPE => Input::TYPE_EMAIL]);
         $label = new Label('from_email', 'contact:fromEmail');
+
+        $this->form[] = new FormGroup($input, $label);
+
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    protected function addFromPhone(): Contact
+    {
+        $input = new Input('from_phone', 'from_phone', '', [], [Html5::ATTR_TYPE => Input::TYPE_TEL]);
+        $label = new Label('from_phone', 'contact:fromPhone');
 
         $this->form[] = new FormGroup($input, $label);
 
