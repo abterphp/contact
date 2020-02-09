@@ -4,11 +4,11 @@ return [
     'contactForm'  => 'Űrlap',
     'contactForms' => 'Űrlapok',
 
-    'fromName'  => 'Név',
-    'fromEmail' => 'Email',
+    'fromName'  => '*Név',
+    'fromEmail' => '*Email',
     'fromPhone' => 'Telefonszám',
-    'subject'   => 'Tárgy',
-    'body'      => 'Üzenet',
+    'subject'   => '*Tárgy',
+    'body'      => '*Üzenet',
     'submit'    => 'Küldés',
 
     'phoneNumber'   => 'Telefonszám',
