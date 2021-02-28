@@ -2,11 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AbterPhp\Contact\Orm\DataMapper;
+namespace AbterPhp\Contact\Orm\DataMappers;
 
 use AbterPhp\Admin\TestCase\Orm\DataMapperTestCase;
 use AbterPhp\Contact\Domain\Entities\Form;
-use AbterPhp\Contact\Orm\DataMappers\FormSqlDataMapper;
 use AbterPhp\Framework\Domain\Entities\IStringerEntity;
 use AbterPhp\Framework\TestDouble\Database\MockStatementFactory;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -34,8 +33,8 @@ class FormSqlDataMapperTest extends DataMapperTestCase
         $failureUrl    = 'https://failure.example.com/';
         $maxBodyLength = 16;
 
-        $sql       = 'INSERT INTO contact_forms (id, name, identifier, to_name, to_email, success_url, failure_url, max_body_length) VALUES (?, ?, ?, ?, ?, ?, ?, ?)'; // phpcs:ignore
-        $values    = [
+        $sql0       = 'INSERT INTO contact_forms (id, name, identifier, to_name, to_email, success_url, failure_url, max_body_length) VALUES (?, ?, ?, ?, ?, ?, ?, ?)'; // phpcs:ignore
+        $values     = [
             [$nextId, \PDO::PARAM_STR],
             [$name, \PDO::PARAM_STR],
             [$identifier, \PDO::PARAM_STR],
@@ -45,8 +44,13 @@ class FormSqlDataMapperTest extends DataMapperTestCase
             [$failureUrl, \PDO::PARAM_STR],
             [$maxBodyLength, \PDO::PARAM_INT],
         ];
-        $statement = MockStatementFactory::createWriteStatement($this, $values);
-        MockStatementFactory::prepare($this, $this->writeConnectionMock, $sql, $statement);
+        $statement0 = MockStatementFactory::createWriteStatement($this, $values);
+
+        $this->writeConnectionMock
+            ->expects($this->once())
+            ->method('prepare')
+            ->with($sql0)
+            ->willReturn($statement0);
 
         $entity = new Form($nextId, $name, $identifier, $toName, $toEmail, $successUrl, $failureUrl, $maxBodyLength);
 
@@ -66,10 +70,15 @@ class FormSqlDataMapperTest extends DataMapperTestCase
         $failureUrl    = 'https://failure.example.com/';
         $maxBodyLength = 16;
 
-        $sql       = 'UPDATE contact_forms AS contact_forms SET deleted_at = NOW() WHERE (id = ?)'; // phpcs:ignore
-        $values    = [[$id, \PDO::PARAM_STR]];
-        $statement = MockStatementFactory::createWriteStatement($this, $values);
-        MockStatementFactory::prepare($this, $this->writeConnectionMock, $sql, $statement);
+        $sql0       = 'UPDATE contact_forms AS contact_forms SET deleted_at = NOW() WHERE (id = ?)'; // phpcs:ignore
+        $values     = [[$id, \PDO::PARAM_STR]];
+        $statement0 = MockStatementFactory::createWriteStatement($this, $values);
+
+        $this->writeConnectionMock
+            ->expects($this->once())
+            ->method('prepare')
+            ->with($sql0)
+            ->willReturn($statement0);
 
         $entity = new Form($id, $name, $identifier, $toName, $toEmail, $successUrl, $failureUrl, $maxBodyLength);
 
@@ -87,7 +96,7 @@ class FormSqlDataMapperTest extends DataMapperTestCase
         $failureUrl    = 'https://failure.example.com/';
         $maxBodyLength = 16;
 
-        $sql          = 'SELECT cf.id, cf.name, cf.identifier, cf.to_name, cf.to_email, cf.success_url, cf.failure_url, cf.max_body_length FROM contact_forms AS cf WHERE (cf.deleted_at IS NULL)'; // phpcs:ignore
+        $sql0         = 'SELECT cf.id, cf.name, cf.identifier, cf.to_name, cf.to_email, cf.success_url, cf.failure_url, cf.max_body_length FROM contact_forms AS cf WHERE (cf.deleted_at IS NULL)'; // phpcs:ignore
         $values       = [];
         $expectedData = [
             [
@@ -101,8 +110,13 @@ class FormSqlDataMapperTest extends DataMapperTestCase
                 'max_body_length' => $maxBodyLength,
             ],
         ];
-        $statement    = MockStatementFactory::createReadStatement($this, $values, $expectedData);
-        MockStatementFactory::prepare($this, $this->readConnectionMock, $sql, $statement);
+        $statement0   = MockStatementFactory::createReadStatement($this, $values, $expectedData);
+
+        $this->readConnectionMock
+            ->expects($this->once())
+            ->method('prepare')
+            ->with($sql0)
+            ->willReturn($statement0);
 
         $actualResult = $this->sut->getAll();
 
@@ -120,7 +134,7 @@ class FormSqlDataMapperTest extends DataMapperTestCase
         $failureUrl    = 'https://failure.example.com/';
         $maxBodyLength = 16;
 
-        $sql          = 'SELECT SQL_CALC_FOUND_ROWS cf.id, cf.name, cf.identifier, cf.to_name, cf.to_email, cf.success_url, cf.failure_url, cf.max_body_length FROM contact_forms AS cf WHERE (cf.deleted_at IS NULL) ORDER BY cf.name ASC LIMIT 10 OFFSET 0'; // phpcs:ignore
+        $sql0         = 'SELECT SQL_CALC_FOUND_ROWS cf.id, cf.name, cf.identifier, cf.to_name, cf.to_email, cf.success_url, cf.failure_url, cf.max_body_length FROM contact_forms AS cf WHERE (cf.deleted_at IS NULL) ORDER BY cf.name ASC LIMIT 10 OFFSET 0'; // phpcs:ignore
         $values       = [];
         $expectedData = [
             [
@@ -134,8 +148,13 @@ class FormSqlDataMapperTest extends DataMapperTestCase
                 'max_body_length' => $maxBodyLength,
             ],
         ];
-        $statement    = MockStatementFactory::createReadStatement($this, $values, $expectedData);
-        MockStatementFactory::prepare($this, $this->readConnectionMock, $sql, $statement);
+        $statement0   = MockStatementFactory::createReadStatement($this, $values, $expectedData);
+
+        $this->readConnectionMock
+            ->expects($this->once())
+            ->method('prepare')
+            ->with($sql0)
+            ->willReturn($statement0);
 
         $actualResult = $this->sut->getPage(0, 10, [], [], []);
 
@@ -156,7 +175,7 @@ class FormSqlDataMapperTest extends DataMapperTestCase
         $orders     = ['block_layouts.identifier ASC'];
         $conditions = ['block_layouts.identifier LIKE \'abc%\'', 'block_layouts.identifier LIKE \'%bca\''];
 
-        $sql          = "SELECT SQL_CALC_FOUND_ROWS cf.id, cf.name, cf.identifier, cf.to_name, cf.to_email, cf.success_url, cf.failure_url, cf.max_body_length FROM contact_forms AS cf WHERE (cf.deleted_at IS NULL) AND (block_layouts.identifier LIKE 'abc%') AND (block_layouts.identifier LIKE '%bca') ORDER BY block_layouts.identifier ASC LIMIT 10 OFFSET 0"; // phpcs:ignore
+        $sql0         = "SELECT SQL_CALC_FOUND_ROWS cf.id, cf.name, cf.identifier, cf.to_name, cf.to_email, cf.success_url, cf.failure_url, cf.max_body_length FROM contact_forms AS cf WHERE (cf.deleted_at IS NULL) AND (block_layouts.identifier LIKE 'abc%') AND (block_layouts.identifier LIKE '%bca') ORDER BY block_layouts.identifier ASC LIMIT 10 OFFSET 0"; // phpcs:ignore
         $values       = [];
         $expectedData = [
             [
@@ -170,8 +189,13 @@ class FormSqlDataMapperTest extends DataMapperTestCase
                 'max_body_length' => $maxBodyLength,
             ],
         ];
-        $statement    = MockStatementFactory::createReadStatement($this, $values, $expectedData);
-        MockStatementFactory::prepare($this, $this->readConnectionMock, $sql, $statement);
+        $statement0   = MockStatementFactory::createReadStatement($this, $values, $expectedData);
+
+        $this->readConnectionMock
+            ->expects($this->once())
+            ->method('prepare')
+            ->with($sql0)
+            ->willReturn($statement0);
 
         $actualResult = $this->sut->getPage(0, 10, $orders, $conditions, []);
 
@@ -189,7 +213,7 @@ class FormSqlDataMapperTest extends DataMapperTestCase
         $failureUrl    = 'https://failure.example.com/';
         $maxBodyLength = 16;
 
-        $sql          = 'SELECT cf.id, cf.name, cf.identifier, cf.to_name, cf.to_email, cf.success_url, cf.failure_url, cf.max_body_length FROM contact_forms AS cf WHERE (cf.deleted_at IS NULL) AND (cf.id = :form_id)'; // phpcs:ignore
+        $sql0         = 'SELECT cf.id, cf.name, cf.identifier, cf.to_name, cf.to_email, cf.success_url, cf.failure_url, cf.max_body_length FROM contact_forms AS cf WHERE (cf.deleted_at IS NULL) AND (cf.id = :form_id)'; // phpcs:ignore
         $values       = ['form_id' => [$id, \PDO::PARAM_STR]];
         $expectedData = [
             [
@@ -203,8 +227,13 @@ class FormSqlDataMapperTest extends DataMapperTestCase
                 'max_body_length' => $maxBodyLength,
             ],
         ];
-        $statement    = MockStatementFactory::createReadStatement($this, $values, $expectedData);
-        MockStatementFactory::prepare($this, $this->readConnectionMock, $sql, $statement);
+        $statement0   = MockStatementFactory::createReadStatement($this, $values, $expectedData);
+
+        $this->readConnectionMock
+            ->expects($this->once())
+            ->method('prepare')
+            ->with($sql0)
+            ->willReturn($statement0);
 
         $actualResult = $this->sut->getById($id);
 
@@ -222,7 +251,7 @@ class FormSqlDataMapperTest extends DataMapperTestCase
         $failureUrl    = 'https://failure.example.com/';
         $maxBodyLength = 16;
 
-        $sql          = 'SELECT cf.id, cf.name, cf.identifier, cf.to_name, cf.to_email, cf.success_url, cf.failure_url, cf.max_body_length FROM contact_forms AS cf WHERE (cf.deleted_at IS NULL) AND (cf.identifier = :form_identifier)'; // phpcs:ignore
+        $sql0         = 'SELECT cf.id, cf.name, cf.identifier, cf.to_name, cf.to_email, cf.success_url, cf.failure_url, cf.max_body_length FROM contact_forms AS cf WHERE (cf.deleted_at IS NULL) AND (cf.identifier = :form_identifier)'; // phpcs:ignore
         $values       = ['form_identifier' => [$identifier, \PDO::PARAM_STR]];
         $expectedData = [
             [
@@ -236,8 +265,13 @@ class FormSqlDataMapperTest extends DataMapperTestCase
                 'max_body_length' => $maxBodyLength,
             ],
         ];
-        $statement    = MockStatementFactory::createReadStatement($this, $values, $expectedData);
-        MockStatementFactory::prepare($this, $this->readConnectionMock, $sql, $statement);
+        $statement0   = MockStatementFactory::createReadStatement($this, $values, $expectedData);
+
+        $this->readConnectionMock
+            ->expects($this->once())
+            ->method('prepare')
+            ->with($sql0)
+            ->willReturn($statement0);
 
         $actualResult = $this->sut->getByIdentifier($identifier);
 
@@ -255,8 +289,8 @@ class FormSqlDataMapperTest extends DataMapperTestCase
         $failureUrl    = 'https://failure.example.com/';
         $maxBodyLength = 16;
 
-        $sql       = 'UPDATE contact_forms AS contact_forms SET name = ?, identifier = ?, to_name = ?, to_email = ?, success_url = ?, failure_url = ?, max_body_length = ? WHERE (id = ?) AND (deleted_at IS NULL)'; // phpcs:ignore
-        $values    = [
+        $sql0       = 'UPDATE contact_forms AS contact_forms SET name = ?, identifier = ?, to_name = ?, to_email = ?, success_url = ?, failure_url = ?, max_body_length = ? WHERE (id = ?) AND (deleted_at IS NULL)'; // phpcs:ignore
+        $values     = [
             [$name, \PDO::PARAM_STR],
             [$identifier, \PDO::PARAM_STR],
             [$toName, \PDO::PARAM_STR],
@@ -266,8 +300,13 @@ class FormSqlDataMapperTest extends DataMapperTestCase
             [$maxBodyLength, \PDO::PARAM_INT],
             [$id, \PDO::PARAM_STR],
         ];
-        $statement = MockStatementFactory::createWriteStatement($this, $values);
-        MockStatementFactory::prepare($this, $this->writeConnectionMock, $sql, $statement);
+        $statement0 = MockStatementFactory::createWriteStatement($this, $values);
+
+        $this->writeConnectionMock
+            ->expects($this->once())
+            ->method('prepare')
+            ->with($sql0)
+            ->willReturn($statement0);
 
         $entity = new Form($id, $name, $identifier, $toName, $toEmail, $successUrl, $failureUrl, $maxBodyLength);
 
